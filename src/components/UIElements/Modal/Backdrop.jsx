@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom"
+import ReactDOM from 'react-dom'
 
 const Backdrop = () => {
   return ReactDOM.createPortal(
@@ -6,5 +6,5 @@ const Backdrop = () => {
     document.getElementById('backdrop-hook')
   )
 }
- 
-export default Backdrop;
+
+export default Backdrop

@@ -1,7 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const Icon = styled.img`
-`;
+export const Icon = styled.img``
 
 export const UserIcon = styled(Icon)`
   width: 40px;

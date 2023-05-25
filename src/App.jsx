@@ -20,7 +20,7 @@ const App = () => {
   if (token) {
     routes = (
       <Routes>
-        <Route path="/" element={<Home />}/>
+        <Route path="/" element={<Home />} />
       </Routes>
     )
   } else {
@@ -47,7 +47,9 @@ const App = () => {
         <main>
           <Suspense
             fallback={
-              <div className="center"><LoadingSpinner /></div>
+              <div className="center">
+                <LoadingSpinner />
+              </div>
             }
           >
             {routes}

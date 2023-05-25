@@ -1,11 +1,11 @@
-import { LoadingSpinnerOverlay } from "./style";
+import { LoadingSpinnerOverlay } from './style'
 
 const Loader = ({ asOverlay }) => {
   return (
-    <LoadingSpinnerOverlay >
+    <LoadingSpinnerOverlay>
       <div className="lds-dual-ring"></div>
     </LoadingSpinnerOverlay>
-  );
+  )
 }
 
-export default Loader;
+export default Loader

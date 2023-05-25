@@ -1,15 +1,15 @@
-import React from 'react';
-import Modal from './Modal/Modal';
-import styled from 'styled-components';
-import { Button } from '@/style/globalButtons';
-import { rem } from 'polished';
+import React from 'react'
+import Modal from './Modal/Modal'
+import styled from 'styled-components'
+import { Button } from '@/style/globalButtons'
+import { rem } from 'polished'
 
 export const DeclineButton = styled(Button)`
-  width: ${rem("100px")};
-  margin: ${rem("5px")};
-`;
+  width: ${rem('100px')};
+  margin: ${rem('5px')};
+`
 
-const ErrorModal = ({ error, onClear}) => {
+const ErrorModal = ({ error, onClear }) => {
   return (
     <Modal
       onCancel={onClear}
@@ -19,7 +19,7 @@ const ErrorModal = ({ error, onClear}) => {
     >
       <p className="error-class">{error}</p>
     </Modal>
-  );
-};
+  )
+}
 
-export default ErrorModal;
+export default ErrorModal

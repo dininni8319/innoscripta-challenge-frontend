@@ -1,10 +1,15 @@
-import { useEffect, useReducer } from 'react';
-import { FormControl, IconWrapper, AuthIcons, ErrorTag } from '@/style/globalWrappers';
-import { AuthInput } from "./InputStyle";
-import { inputReducer } from "../../reducers/inputReducer";
+import { useEffect, useReducer } from 'react'
+import {
+  FormControl,
+  IconWrapper,
+  AuthIcons,
+  ErrorTag
+} from '@/style/globalWrappers'
+import { AuthInput } from './InputStyle'
+import { inputReducer } from '../../reducers/inputReducer'
 
 const Input = (props) => {
- const {
+  const {
     id,
     type,
     placeHolder,
@@ -14,71 +19,74 @@ const Input = (props) => {
     icon,
     errorText,
     onInput,
-    value,
-  } = props;
+    value
+  } = props
 
   const initialState = {
-    value: props.initialValue || "",
-    isTouched: false, 
-    isValid: props.initialValid || false 
-  };
+    value: props.initialValue || '',
+    isTouched: false,
+    isValid: props.initialValid || false
+  }
 
-  const [ inputState, dispatch ] = useReducer(inputReducer, initialState);
-  console.log("🚀 ~ file: Input.jsx:27 ~ Input ~ inputState:", inputState)
-  
-  const changeHandler = event => {
+  const [inputState, dispatch] = useReducer(inputReducer, initialState)
+  console.log('🚀 ~ file: Input.jsx:27 ~ Input ~ inputState:', inputState)
+
+  const changeHandler = (event) => {
     dispatch({
-      type: "ON_CHANGE",
+      type: 'ON_CHANGE',
       val: event.target.value,
-      validators: props.validators    
+      validators: props.validators
     })
-  };
+  }
 
   const touchHandler = () => {
     dispatch({
-      type: "TOUCH"
+      type: 'TOUCH'
     })
   }
-  
+
   useEffect(() => {
-     onInput(id, inputState.value, inputState.isValid);
-  }, [id, inputState.value, inputState.isValid]);
-  
-  const element = inputElement === "input" ? (
-    <AuthInput
-      formInvalid={!inputState.value && inputState.isTouched}
-      id={id}
-      type={type}
-      placeholder={placeHolder}
-      onChange={changeHandler}
-      value={inputState?.value}
-      onBlur={touchHandler}
-    />
-  ) : (
-    <textarea
-      id={id}
-      row={rows || 3}    
-      placeholder={placeHolder}
-      onChange={changeHandler}
-      value={inputState?.value || value}
-      onBlur={touchHandler}
-    />
-  );
-  return ( 
+    onInput(id, inputState.value, inputState.isValid)
+  }, [id, inputState.value, inputState.isValid])
+
+  const element =
+    inputElement === 'input' ? (
+      <AuthInput
+        formInvalid={!inputState.value && inputState.isTouched}
+        id={id}
+        type={type}
+        placeholder={placeHolder}
+        onChange={changeHandler}
+        value={inputState?.value}
+        onBlur={touchHandler}
+      />
+    ) : (
+      <textarea
+        id={id}
+        row={rows || 3}
+        placeholder={placeHolder}
+        onChange={changeHandler}
+        value={inputState?.value || value}
+        onBlur={touchHandler}
+      />
+    )
+  return (
     <FormControl>
       <IconWrapper>
         {icon && <AuthIcons src={icon} />}
         <label htmlFor={id}>{label}</label>
       </IconWrapper>
-       {element}
+      {element}
       {/* {email && (
         <IconWrapper>
           <AuthIcons src={email} />  
         </IconWrapper>
       )} */}
-      {!inputState.isValid && inputState.isTouched && <ErrorTag>{errorText}</ErrorTag>}
+      {!inputState.isValid && inputState.isTouched && (
+        <ErrorTag>{errorText}</ErrorTag>
+      )}
     </FormControl>
-   );
+  )
 }
- 
-export default Input;
+
+export default Input

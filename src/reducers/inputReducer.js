@@ -1,7 +1,6 @@
 import { validate } from '@/utils/validators'
 
 export const inputReducer = (state, action) => {
-
   switch (action.type) {
     case 'ON_CHANGE':
       return {

@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components'
 
 const rotate = keyframes`
   0% {
@@ -8,11 +8,11 @@ const rotate = keyframes`
   100% {
     transform: rotate(360deg);
   }
-`;
+`
 
 export const LoadingSpinnerOverlay = styled.div`
   display: inline-block;
-  
+
   &::after {
     content: ' ';
     display: block;
@@ -24,4 +24,4 @@ export const LoadingSpinnerOverlay = styled.div`
     border-color: white transparent white transparent;
     animation: ${rotate} 1.2s linear infinite;
   }
-`;
+`

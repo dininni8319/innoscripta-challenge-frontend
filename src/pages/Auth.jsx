@@ -13,7 +13,7 @@ import { AuthButton } from '@/components/FormElements/ButtonStyle'
 import Card from '@/components/UIElements/Card'
 import LoadingSinner from '@/components/UIElements/Loader'
 import ErrorModal from '@/components/UIElements/ErrorModal'
-import { AuthContext } from '@/context/auth-context';
+import { AuthContext } from '@/context/auth-context'
 
 const Auth = () => {
   const [isLoginMode, setIsLoginMode] = useState(true)
@@ -94,7 +94,7 @@ const Auth = () => {
           password_confirmation: {
             value: '',
             isValid: false
-          },
+          }
         },
         false
       )
