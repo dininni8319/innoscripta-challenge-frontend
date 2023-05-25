@@ -5,15 +5,15 @@ import {
   VALIDATOR_MINLENGTH
 } from '@/util/validators'
 import './Auth.css'
+import { useForm } from '@/hooks/form-hook'
+import { useHttpClient } from '@/hooks/http-hook'
+import { base_url } from '@/utils'
 import Input from '@/components/FormElements/Input'
 import Button from '@/components/FormElements/Button'
-import { useForm } from '@/hooks/form-hook'
 import Card from '@/components/UIElements/Card'
 import LoadingSinner from '@/components/UIElements/LoadingSpinner'
 import ErrorModal from '@/components/UIElements/ErrorModal'
-import { useHttpClient } from '@/hooks/http-hook'
-import ImageUpload from '@/components/FormElements/ImageUpload'
-import { base_url } from '@/utils'
+import { AuthContext } from '@/context/auth-context';
 
 const Auth = () => {
   const [isLoginMode, setIsLoginMode] = useState(true)
@@ -55,19 +55,20 @@ const Auth = () => {
       } catch (err) {}
     } else {
       try {
-        // here we are formatting the data like multipart/form-data
-        // because the image is in binary format, json will not work
-        const formData = new FormData()
-        formData.append('email', formState.inputs.email.value)
-        formData.append('name', formState.inputs.name.value)
-        formData.append('password', formState.inputs.password.value)
-        formData.append('image', formState.inputs.image.value)
         const response = await sendRequest(
-          `${api_url.backend}/user/signup`,
+          `${api_url.backend}/users/regiter`,
           'POST',
-          formData
+          JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+            password_confirmation: formState.inputs.password_confirmation.value
+          }),
+          {
+            'Content-Type': 'application/json'
+          }
         )
-        login(response?.id, response?.token, response?.email, response?.user)
+        login(response?.id, response?.token, response?.email, response?.name)
       } catch (err) {}
     }
   }
@@ -78,7 +79,7 @@ const Auth = () => {
         {
           ...formState.inputs,
           name: undefined,
-          image: undefined
+          password_confirmation: undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.value
       )
@@ -90,12 +91,10 @@ const Auth = () => {
             value: '',
             isValid: false
           },
-          image: {
-            value: {
-              value: null,
-              isValid: false
-            }
-          }
+          password_confirmation: {
+            value: '',
+            isValid: false
+          },
         },
         false
       )
@@ -123,11 +122,14 @@ const Auth = () => {
             />
           )}
           {!isLoginMode && (
-            <ImageUpload
-              center
-              id="image"
+            <Input
+              id="password_confirmation"
+              type="password"
+              element="input"
+              label="Confirm Password"
+              validators={[VALIDATOR_MINLENGTH(8)]}
               onInput={inputHandler}
-              errorText="Please provide a valid image"
+              errorText="Please enter a valid password (at least 6 characters!)"
             />
           )}
 
@@ -147,16 +149,16 @@ const Auth = () => {
             label="Password"
             validators={[VALIDATOR_MINLENGTH(8)]}
             onInput={inputHandler}
-            errorText="Please enter a valid password (at least 8 characters!)"
+            errorText="Please enter a valid password (at least 6 characters!)"
           />
 
           <Button type="submit" disabled={!formState.isValid}>
-            {isLoginMode ? 'LOGIN' : 'SIGNUP'}
+            {isLoginMode ? 'LOGIN' : 'REGISTER'}
           </Button>
         </form>
 
         <Button inverse onClick={switchToSignUp}>
-          SWITCH TO SIGNUP
+          SWITCH TO REGISTER
         </Button>
       </Card>
     </div>

@@ -3,6 +3,6 @@
 <h3>Packages --- Dependencies</h3>
 pnpm install --save styled-components<br />
 pnpm install --save react-router-dom<br />
-
+pnpm i polished<br />
 <h3>Packages --- devDependencies</h3>
 priettier<br />
