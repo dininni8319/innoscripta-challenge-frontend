@@ -24,6 +24,8 @@ const Input = (props) => {
   };
 
   const [ inputState, dispatch ] = useReducer(inputReducer, initialState);
+  console.log("🚀 ~ file: Input.jsx:27 ~ Input ~ inputState:", inputState)
+
 
   const changeHandler = event => {
     dispatch({

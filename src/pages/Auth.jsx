@@ -113,7 +113,7 @@ const Auth = () => {
           {!isLoginMode && (
             <Input
               id="name"
-              element="input"
+              inputElement="input"
               type="text"
               label="Your Name"
               validators={[VALIDATOR_REQUIRE()]}
@@ -125,7 +125,7 @@ const Auth = () => {
             <Input
               id="password_confirmation"
               type="password"
-              element="input"
+              inputElement="input"
               label="Confirm Password"
               validators={[VALIDATOR_MINLENGTH(8)]}
               onInput={inputHandler}
@@ -135,7 +135,7 @@ const Auth = () => {
 
           <Input
             id="email"
-            element="input"
+            inputElement="input"
             type="email"
             label="E-mail"
             validators={[VALIDATOR_EMAIL()]}
@@ -145,7 +145,7 @@ const Auth = () => {
           <Input
             id="password"
             type="password"
-            element="input"
+            inputElement="input"
             label="Password"
             validators={[VALIDATOR_MINLENGTH(8)]}
             onInput={inputHandler}

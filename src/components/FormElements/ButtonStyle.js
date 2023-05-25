@@ -7,7 +7,7 @@ export const AuthButton = styled(Button)`
   height: ${rem("50px")};
   margin-top: 10%;
   background: ${props => props.formIsValid ? "#ccc" : props.theme.purpleColor};
-  color: ${props => props.formIsValid ? "#979797" : "white"};
+  color: ${props => props.formIsValid ? "#979797" : "black"};
   border: none;
   outline: none;
   padding-top: ${props => props.successBtn ? "5px" : 0};

@@ -10,8 +10,7 @@ import { AuthContext } from '@/context/auth-context'
 import { useAuth } from '@/hooks/auth-hook'
 import LoadingSpinner from '@/components/UIElements/Loader'
 import Home from './pages/Home'
-import Auth from '@/pages/Auth'
-
+import Login from '@/pages/Login'
 
 const App = () => {
   const { token, login, logout, userId } = useAuth()
@@ -21,13 +20,12 @@ const App = () => {
     routes = (
       <Routes>
         <Route path="/" element={<Home />}/>
-        {/* <Navigate to="/" replace /> */}
       </Routes>
     )
   } else {
     routes = (
       <Routes>
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     )
   }
