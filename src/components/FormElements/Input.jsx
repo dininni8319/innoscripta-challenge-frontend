@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from 'react';
 import { FormControl, IconWrapper, AuthIcons, ErrorTag } from '@/style/globalWrappers';
 import { AuthInput } from "./InputStyle";
-import { inputReducer } from "@/reducers/inputReducer";
+import { inputReducer } from "../../reducers/inputReducer";
 
 const Input = (props) => {
  const {
@@ -25,8 +25,7 @@ const Input = (props) => {
 
   const [ inputState, dispatch ] = useReducer(inputReducer, initialState);
   console.log("🚀 ~ file: Input.jsx:27 ~ Input ~ inputState:", inputState)
-
-
+  
   const changeHandler = event => {
     dispatch({
       type: "ON_CHANGE",

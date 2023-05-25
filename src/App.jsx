@@ -11,6 +11,7 @@ import { useAuth } from '@/hooks/auth-hook'
 import LoadingSpinner from '@/components/UIElements/Loader'
 import Home from './pages/Home'
 import Login from '@/pages/Login'
+import Register from '@/pages/Register'
 
 const App = () => {
   const { token, login, logout, userId } = useAuth()
@@ -26,6 +27,7 @@ const App = () => {
     routes = (
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     )
   }

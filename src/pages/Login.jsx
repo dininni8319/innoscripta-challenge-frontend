@@ -6,10 +6,9 @@ import { useForm } from "@/hooks/form-hook";
 import { AuthContext } from "@/context/auth-context";
 import ErrorModal from '@/components/UIElements/ErrorModal'
 import { AuthLayout } from "@/style/globalWrappers"
-import { base_url } from '@/utils/urls'
+import { base_url } from '@/utils'
 
 const Signin = () => {
-
   const navigate = useNavigate();
   const { login } = useContext(AuthContext)
   const [ formState, inputHandler, setFormData ] = useForm({

@@ -1,10 +1,9 @@
 import { validate } from '@/utils/validators'
 
 export const inputReducer = (state, action) => {
-  console.log("🚀 ~ file: inputReducer.js:4 ~ inputReducer ~ action:", action)
-  
+
   switch (action.type) {
-    case 'CHANGE':
+    case 'ON_CHANGE':
       return {
         ...state,
         value: action.val,

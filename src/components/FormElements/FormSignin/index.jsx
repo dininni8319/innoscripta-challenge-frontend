@@ -14,7 +14,7 @@ const FormLogin = ({ loginHandler, inputHandler, loading, formState }) => {
       <TopTitleWrapper>
          <SignUpMessage>Do you have an account?</SignUpMessage>
          <TopLoginButton>
-           <Link to="/auth/register">
+           <Link to="/register">
              SIGN UP
            </Link>
          </TopLoginButton>
