@@ -5,13 +5,13 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom'
-
 // import MainNavigation from '@/components/UIElements/Navigation/MainNavigation'
-import { AuthContext } from '@/ontext/auth-context'
+import { AuthContext } from '@/context/auth-context'
 import { useAuth } from '@/hooks/auth-hook'
-// import LoadingSpinner from './shared/components/UIElements/LoadingSpinner'
+import LoadingSpinner from '@/components/UIElements/Loader'
+import Home from './pages/Home'
+import Auth from '@/pages/Auth'
 
-const Auth = React.lazy(() => import('@/pages/Auth'))
 
 const App = () => {
   const { token, login, logout, userId } = useAuth()
@@ -21,16 +21,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <Users />
-        </Route>
-        <Route path="/:userId/places" exact>
-          <UserPlaces />
-        </Route>
-        <Route path="/places/new" exact>
-          <NewPlace />
-        </Route>
-        <Route path="/places/:placeId" exact>
-          <UpdatePlace />
+          <Home />
         </Route>
         <Redirect to="/" />
       </Switch>
@@ -38,12 +29,6 @@ const App = () => {
   } else {
     routes = (
       <Switch>
-        <Route path="/" exact>
-          <Users />
-        </Route>
-        <Route path="/:userId/places" exact>
-          <UserPlaces />
-        </Route>
         <Route path="/auth" exact>
           <Auth />
         </Route>
@@ -62,20 +47,18 @@ const App = () => {
         logout: logout
       }}
     >
-      <ConfigProvider>
-        <Router>
-          <MainNavigation />
-          <main>
-            <Suspense
-              fallback={
-                <div className="center">{/* <LoadingSpinner /> */}</div>
-              }
-            >
-              {routes}
-            </Suspense>
-          </main>
-        </Router>
-      </ConfigProvider>
+      <Router>
+        {/* <MainNavigation /> */}
+        <main>
+          <Suspense
+            fallback={
+              <div className="center"><LoadingSpinner /></div>
+            }
+          >
+            {routes}
+          </Suspense>
+        </main>
+      </Router>
     </AuthContext.Provider>
   )
 }

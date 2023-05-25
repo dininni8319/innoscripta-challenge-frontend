@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from './Modal';
 import styled from 'styled-components';
-import { Button } from '../../../shared/style/globalButtons';
+import { Button } from '@/style/globalButtons';
 import { rem } from 'polished';
 
 export const DeclineButton = styled(Button)`
