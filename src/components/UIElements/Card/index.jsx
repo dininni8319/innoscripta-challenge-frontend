@@ -1,8 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-import './Card.css'
 
-export const Card = styled.div`
+export const CardStyle = styled.div`
   position: relative;
   margin: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -12,11 +11,11 @@ export const Card = styled.div`
   background: white;
 `
 
-const Card = ({ children, className }) => {
+const Card = ({ children, className, style }) => {
   return (
-    <Card className={className} style={props.style}>
+    <CardStyle className={className} style={style}>
       {children}
-    </Card>
+    </CardStyle>
   )
 }
 

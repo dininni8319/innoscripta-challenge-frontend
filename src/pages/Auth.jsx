@@ -3,15 +3,15 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH
-} from '@/util/validators'
+} from '@/utils/validators'
 import './Auth.css'
 import { useForm } from '@/hooks/form-hook'
 import { useHttpClient } from '@/hooks/http-hook'
 import { base_url } from '@/utils'
 import Input from '@/components/FormElements/Input'
-import Button from '@/components/FormElements/Button'
+import { AuthButton } from '@/components/FormElements/ButtonStyle'
 import Card from '@/components/UIElements/Card'
-import LoadingSinner from '@/components/UIElements/LoadingSpinner'
+import LoadingSinner from '@/components/UIElements/Loader'
 import ErrorModal from '@/components/UIElements/ErrorModal'
 import { AuthContext } from '@/context/auth-context';
 
@@ -152,14 +152,14 @@ const Auth = () => {
             errorText="Please enter a valid password (at least 6 characters!)"
           />
 
-          <Button type="submit" disabled={!formState.isValid}>
+          <AuthButton type="submit" disabled={!formState.isValid}>
             {isLoginMode ? 'LOGIN' : 'REGISTER'}
-          </Button>
+          </AuthButton>
         </form>
 
-        <Button inverse onClick={switchToSignUp}>
+        <AuthButton inverse onClick={switchToSignUp}>
           SWITCH TO REGISTER
-        </Button>
+        </AuthButton>
       </Card>
     </div>
   )

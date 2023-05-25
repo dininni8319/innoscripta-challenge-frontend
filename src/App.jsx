@@ -2,8 +2,8 @@ import { Suspense } from 'react'
 import {
   BrowserRouter as Router,
   Route,
-  Redirect,
-  Switch
+  Navigate,
+  Routes
 } from 'react-router-dom'
 // import MainNavigation from '@/components/UIElements/Navigation/MainNavigation'
 import { AuthContext } from '@/context/auth-context'
@@ -19,21 +19,16 @@ const App = () => {
 
   if (token) {
     routes = (
-      <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Redirect to="/" />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        {/* <Navigate to="/" replace /> */}
+      </Routes>
     )
   } else {
     routes = (
-      <Switch>
-        <Route path="/auth" exact>
-          <Auth />
-        </Route>
-        <Redirect to="/auth" />
-      </Switch>
+      <Routes>
+        <Route path="/auth" element={<Auth />} />
+      </Routes>
     )
   }
   return (

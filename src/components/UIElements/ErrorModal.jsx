@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from './Modal';
+import Modal from './Modal/Modal';
 import styled from 'styled-components';
 import { Button } from '@/style/globalButtons';
 import { rem } from 'polished';

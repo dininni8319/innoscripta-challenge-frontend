@@ -1,4 +1,4 @@
-import { validate } from '@/util/validators'
+import { validate } from '@/utils/validators'
 
 export const inputReducer = (state, action) => {
   switch (action.type) {
