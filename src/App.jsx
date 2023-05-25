@@ -8,53 +8,42 @@ import {
 // import MainNavigation from '@/components/UIElements/Navigation/MainNavigation'
 import { AuthContext } from '@/context/auth-context'
 import { useAuth } from '@/hooks/auth-hook'
-import LoadingSpinner from '@/components/UIElements/Loader'
 import Home from './pages/Home'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
+import ProtectedRoute from './PrivateRoute'
 
 const App = () => {
-  const { token, login, logout, userId } = useAuth()
+  const { token, login, logout, userId, name } = useAuth()
+  console.log("🚀 ~ file: App.jsx:18 ~ App ~ token:", token)
   let routes
+  
 
-  if (token) {
-    routes = (
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    )
-  } else {
-    routes = (
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    )
-  }
   return (
     <AuthContext.Provider
       value={{
         isLoggedIn: !!token,
         token: token,
         userId: userId,
-        // name: userData.name,
+        name: name,
         login: login,
         logout: logout
       }}
     >
       <Router>
         {/* <MainNavigation /> */}
-        <main>
-          <Suspense
-            fallback={
-              <div className="center">
-                <LoadingSpinner />
-              </div>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
             }
-          >
-            {routes}
-          </Suspense>
-        </main>
+          />
+        </Routes>
       </Router>
     </AuthContext.Provider>
   )

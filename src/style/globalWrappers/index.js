@@ -20,7 +20,7 @@ export const FormControl = styled.div`
   input,
   textarea {
     display: block;
-    margin: ${rem('10px')};
+    margin: ${rem('5px')};
   }
 
   label {

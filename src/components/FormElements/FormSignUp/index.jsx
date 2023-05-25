@@ -53,7 +53,7 @@ const FormRegister = ({ signupHandler, inputHandler, loading, formState }) => {
           type="password"
           inputElement="input"
           label="Password"
-          validators={[VALIDATOR_MINLENGTH(8)]}
+          validators={[VALIDATOR_MINLENGTH(6)]}
           onInput={inputHandler}
           errorText="Please enter a valid password (at least 6 characters!)"
         />
@@ -62,7 +62,7 @@ const FormRegister = ({ signupHandler, inputHandler, loading, formState }) => {
           type="password"
           inputElement="input"
           label="Confirm Password"
-          validators={[VALIDATOR_MINLENGTH(8)]}
+          validators={[VALIDATOR_MINLENGTH(6)]}
           onInput={inputHandler}
           errorText="Please enter a valid password (at least 6 characters!)"
         />

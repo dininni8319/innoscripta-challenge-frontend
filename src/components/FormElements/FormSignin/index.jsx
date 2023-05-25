@@ -41,7 +41,7 @@ const FormLogin = ({ loginHandler, inputHandler, loading, formState }) => {
           label="Password"
           inputElement="input"
           icon={password}
-          validators={[VALIDATOR_MINLENGTH(8)]}
+          validators={[VALIDATOR_MINLENGTH(6)]}
           onInput={inputHandler}
           errorText="Please enter a valid password"
         />

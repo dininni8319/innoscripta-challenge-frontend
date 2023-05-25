@@ -42,10 +42,13 @@ const Signin = () => {
           'Content-Type': 'application/json'
         }
       )
+      console.log("🚀 ~ file: Login.jsx:45 ~ loginHandler ~ response:", response.data)
+      
       login(
-        response.userName.first_name,
-        response.userName.last_name,
-        response.token
+        response.data.id,
+        response.token,
+        response.data.email,
+        response.data.name
       )
       navigate('/')
     } catch (err) {}

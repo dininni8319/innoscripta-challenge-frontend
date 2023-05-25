@@ -5,21 +5,21 @@ let logoutTimer
 export const useAuth = () => {
   const [tokenExpirationDate, setTokenExpirationDate] = useState()
   const [userData, setUserData] = useState({
+    uid: '',
     token: '',
-    name: '',
     email: '',
-    uid: ''
+    name: '',
   })
 
   const login = useCallback((uid, token, email, name, expirationDate) => {
     setUserData((prevState) => ({
       ...prevState,
+      uid: uid,
       token: token,
       email: email,
       name: name,
-      uid: uid
     }))
-    //exsisting experation date or it creates a new one
+  
     const tokenExpirationDate =
       expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60) // add one hour to the current date
 
@@ -27,10 +27,11 @@ export const useAuth = () => {
     localStorage.setItem(
       'user',
       JSON.stringify({
+        uid: uid,
         token: token,
         email: email,
         name: name,
-        uid: uid
+        // expiration: tokenExpirationToString
       })
     )
   }, [])
@@ -57,7 +58,7 @@ export const useAuth = () => {
   }, [userData.token, logout, tokenExpirationDate])
 
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('user')) //the parse method converts the json object/text back into JS
+    const storedData = JSON.parse(localStorage.getItem('user')) 
     if (
       storedData &&
       storedData.token &&
@@ -77,6 +78,7 @@ export const useAuth = () => {
     token: userData.token,
     login,
     logout,
-    userId: userData.uid
+    userId: userData.uid,
+    name: userData.name
   }
 }

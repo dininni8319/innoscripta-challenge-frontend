@@ -29,7 +29,6 @@ const Input = (props) => {
   }
 
   const [inputState, dispatch] = useReducer(inputReducer, initialState)
-  console.log('🚀 ~ file: Input.jsx:27 ~ Input ~ inputState:', inputState)
 
   const changeHandler = (event) => {
     dispatch({
@@ -52,7 +51,7 @@ const Input = (props) => {
   const element =
     inputElement === 'input' ? (
       <AuthInput
-        formInvalid={!inputState.value && inputState.isTouched}
+        forminvalid={!inputState.value && inputState.isTouched}
         id={id}
         type={type}
         placeholder={placeHolder}

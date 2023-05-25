@@ -11,7 +11,7 @@ export const FormContainer = styled.div`
 `
 
 export const FormWrapper = styled.form`
-  height: 60%;
+  min-height: 60%;
   width: 100%;
   display: flex;
   flex-direction: column;
