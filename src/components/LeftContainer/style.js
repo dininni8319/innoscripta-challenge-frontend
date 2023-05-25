@@ -1,15 +1,16 @@
 import styled from 'styled-components'
-import backgroundImg from '@/assets/images/background_image.png'
+import backgroundImg from '@/assets/images/news-img.avif'
 import { Title } from '@/style/globalTitles'
 import { Icon } from '@/style/globalIcons'
 import { Button } from '@/style/globalButtons'
 
 export const MainContainer = styled.div`
-  width: 40%;
+  width: 45%;
   height: 100vh;
   box-sizing: border-box;
   margin-bottom: 0px;
-  background: ${(props) => props.theme.LinearGradient}, url(${backgroundImg});
+  background: ${(props) => props.theme.LinearGradient2}, url(${backgroundImg});
+  /* background: url(${backgroundImg}); */
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -32,7 +33,7 @@ export const MotionTitle = styled(Title)`
   font-weight: 400;
   letter-spacing: 0.8px;
   color: white;
-  opacity: 0.6;
+
   margin-top: 4%;
   text-align: center;
 `

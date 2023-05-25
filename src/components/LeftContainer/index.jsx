@@ -23,7 +23,7 @@ const LeftContainer = () => {
     <MainContainer>
       <TitleContainer>
         <img src={logo} alt="Motion logo" />
-        <MotionTitle>Motion</MotionTitle>
+        <MotionTitle>News App</MotionTitle>
         <Slogan>
           Connect with friends and the world around you with Motion
         </Slogan>
@@ -42,7 +42,7 @@ const LeftContainer = () => {
           <SocialButtons src={twitter}></SocialButtons>
           <SocialButtons src={instagram}></SocialButtons>
         </IconContainer>
-        <Signature>© Motion 2018. All right reserved</Signature>
+        <Signature>© News App 2018. All right reserved</Signature>
       </BottomContainer>
     </MainContainer>
   )
