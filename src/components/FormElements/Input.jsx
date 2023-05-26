@@ -6,7 +6,7 @@ import {
   ErrorTag
 } from '@/style/globalWrappers'
 import { AuthInput } from './InputStyle'
-import { inputReducer } from '../../reducers/inputReducer'
+import { inputReducer } from '@/reducers/inputReducer'
 
 const Input = (props) => {
   const {

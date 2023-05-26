@@ -14,6 +14,11 @@ export const inputReducer = (state, action) => {
         isTouched: true
       }
     }
+    case 'SEARCH_CHANGE':
+      return {
+        ...state,
+        value: action.val
+      }
     default:
       return state
   }
