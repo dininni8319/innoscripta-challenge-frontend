@@ -5,9 +5,9 @@ export const HeaderStyle = styled.header`
   height: 4rem;
   display: flex;
   align-items: center;
-  position: fixed;
+  /* position: fixed;
   top: 0;
-  left: 0;
+  left: 0; */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.26);
   padding: 0 1rem;
   z-index: 5;
