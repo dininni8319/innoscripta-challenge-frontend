@@ -6,4 +6,7 @@ pnpm install --save react-router-dom<br />
 pnpm i polished<br />
 pnpm install react-transition-group --save<br />
 <h3>Packages --- devDependencies</h3>
+Docker<br/>
+docker build -t [any name] . <br/>
+image name: frontend:1
 priettier<br />
