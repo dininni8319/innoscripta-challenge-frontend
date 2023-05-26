@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import Card from '../Card'
+import { funFormatDate } from '@/utils'
 
 export const ArticleItemStyle = styled.li`
-   margin: 1rem 0;
-
+  margin: 1rem 0;
 
   .place-item__content {
     padding: 0;
@@ -75,7 +75,7 @@ const ArticleItem = (props) => {
         <div className="place-item__info">
           <h2>Title: {title}</h2>
           <h3>
-            Author{author} <span>Published:{publishedAt}</span>
+            Author{author} <span>Published:{funFormatDate(publishedAt)}</span>
           </h3>
           <p>{content?.slice(0, 40)}</p>
           <p>{description?.slice(0, 40)}</p>
@@ -84,5 +84,5 @@ const ArticleItem = (props) => {
     </ArticleItemStyle>
   )
 }
-  
-export default ArticleItem;
+
+export default ArticleItem

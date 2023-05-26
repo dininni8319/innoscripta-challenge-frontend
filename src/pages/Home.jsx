@@ -4,7 +4,7 @@ import { newsApiUrl, newsApiKey } from '@/utils'
 import { inputReducer } from '@/reducers/inputReducer'
 import SearchInput from '@/components/SearchInput'
 import ArticlesList from '@/components/UIElements/ArticlesList'
-
+import SearchButtons from '@/components/UIElements/SearchButtons'
 const initialState = {
   value: ''
 }
@@ -14,20 +14,22 @@ const Home = () => {
   const { sendRequest } = useHttpClient()
   const [pageNum, setPageNum] = useState(1)
   const [inputState, dispatch] = useReducer(inputReducer, initialState)
-
+  
   useEffect(() => {
     if (inputState.value.length > 3) {
       const fetchPlaces = async () => {
         try {
           const responseData = await sendRequest(
             `${newsApiUrl}/everything?q=${inputState.value}&from=2023-05-01&sortBy=publishedAt&apiKey=${newsApiKey}&page=${pageNum}&pageSize=12`
-          )          
-          setSearchedArticles((prevState) => prevState.concat(responseData.articles))
+          )
+          setSearchedArticles((prevState) =>
+            responseData.articles?.concat(prevState)
+          )
         } catch (error) {}
       }
       fetchPlaces()
     }
-  }, [sendRequest, inputState.value])
+  }, [sendRequest, inputState.value, pageNum,])
 
   return (
     <>
@@ -39,6 +41,10 @@ const Home = () => {
         dispatch={dispatch}
         placeholder="Search..."
         value={inputState.value}
+      />
+      <SearchButtons
+        pageNum={pageNum} 
+        setPageNum={setPageNum}
       />
       <br />
       <br />

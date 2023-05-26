@@ -11,11 +11,11 @@ export const ArticlesListStyle = styled.ul`
 `
 
 const PlaceList = ({ articles }) => {
-  console.log("🚀 ~ file: index.jsx:14 ~ PlaceList ~ articles:", articles[0])
-  
+  console.log('🚀 ~ file: index.jsx:14 ~ PlaceList ~ articles:', articles)
+
   if (articles?.length === 0) {
     return (
-      <ArticlesListStyle >
+      <ArticlesListStyle>
         <Card>
           <h2>No article was found. Try with another keyword</h2>
         </Card>
