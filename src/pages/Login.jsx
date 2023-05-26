@@ -42,8 +42,12 @@ const Signin = () => {
           'Content-Type': 'application/json'
         }
       )
-      console.log("🚀 ~ file: Login.jsx:45 ~ loginHandler ~ response:", response.data)
-      
+
+      if (!response.success) {
+        toast.error(response.message)
+        return
+      }
+
       login(
         response.data.id,
         response.token,

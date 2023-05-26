@@ -8,7 +8,7 @@ export const useAuth = () => {
     uid: '',
     token: '',
     email: '',
-    name: '',
+    name: ''
   })
 
   const login = useCallback((uid, token, email, name, expirationDate) => {
@@ -17,9 +17,9 @@ export const useAuth = () => {
       uid: uid,
       token: token,
       email: email,
-      name: name,
+      name: name
     }))
-  
+
     const tokenExpirationDate =
       expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60) // add one hour to the current date
 
@@ -30,7 +30,7 @@ export const useAuth = () => {
         uid: uid,
         token: token,
         email: email,
-        name: name,
+        name: name
         // expiration: tokenExpirationToString
       })
     )
@@ -58,7 +58,7 @@ export const useAuth = () => {
   }, [userData.token, logout, tokenExpirationDate])
 
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('user')) 
+    const storedData = JSON.parse(localStorage.getItem('user'))
     if (
       storedData &&
       storedData.token &&

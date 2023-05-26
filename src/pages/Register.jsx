@@ -1,17 +1,18 @@
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LeftContainer from '@/components/LeftContainer'
 import FormSignUp from '@/components/FormElements/FormSignUp'
 import { useHttpClient } from '@/hooks/http-hook'
 import { useForm } from '@/hooks/form-hook'
-
-import ErrorModal from '@/components/UIElements/ErrorModal'
+import { AuthContext } from '@/context/auth-context'
 import { AuthLayout } from '@/style/globalWrappers'
 import { base_url } from '@/utils'
+import ErrorModal from '@/components/UIElements/ErrorModal'
 
 const Signup = () => {
   const navigate = useNavigate()
-
+  const { login } = useContext(AuthContext)
+  const [message, setMessage] = useState('')
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -45,32 +46,46 @@ const Signup = () => {
       return
     }
 
-    let response
-    try {
-      response = await sendRequest(
-        `${base_url}/users/register`,
-        'POST',
-        JSON.stringify({
-          name: formState.inputs.name.value,
-          email: formState.inputs.email.value,
-          password: formState.inputs.password.value,
-          password_confirmation: formState.inputs.password_confirmation.value
-        }),
-        {
-          'Content-Type': 'application/json'
-        }
-      )
-    } catch (err) {}
-    if (response) {
-      const user = localStorage.setItem('email', formState.inputs.email.value)
-
-      navigate('/')
+    const response = await sendRequest(
+      `${base_url}/users/register`,
+      'POST',
+      JSON.stringify({
+        name: formState.inputs.name.value,
+        email: formState.inputs.email.value,
+        password: formState.inputs.password.value,
+        password_confirmation: formState.inputs.password_confirmation.value
+      }),
+      {
+        'Content-Type': 'application/json'
+      }
+    )
+    if (!response.success) {
+      setMessage(response.message)
+      return
     }
+
+    let resp = await sendRequest(
+      `${base_url}/users/login`,
+      'POST',
+      JSON.stringify({
+        email: formState.inputs.email.value,
+        password: formState.inputs.password.value
+      }),
+      {
+        'Content-Type': 'application/json'
+      }
+    )
+    if (!resp.success) {
+      setMessage(resp.message)
+      return
+    }
+    login(resp.data.id, resp.token, resp.data.email, resp.data.name)
+    navigate('/')
   }
 
   return (
     <AuthLayout>
-      <ErrorModal onClear={clearError} error={error} />
+      <ErrorModal onClear={clearError} error={error || message} />
       <LeftContainer />
       <FormSignUp
         signupHandler={signupHandler}

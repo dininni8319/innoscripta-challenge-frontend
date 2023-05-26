@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?&family=Roboto:wght@500&display=swap');
+
   * {
       margin: 0;
       padding: 0;
@@ -8,6 +10,15 @@ export const GlobalStyle = createGlobalStyle`
       font-family: "Roboto",serif;
       box-sizing: border-box;
     }
+
+  ul {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit
+  }
 `
 
 export const theme = {
@@ -18,6 +29,6 @@ export const theme = {
   BorderBottomInput: 'solid rgba(149,149,149,0.21) 1.5px',
   grayColor: '#F8F8F8',
   purpleColor: 'linear-gradient(132.96deg, #C468FF 3.32%, #6E91F6 100%)',
-  // cover: "rgb(255,255,255, 80%)"
-  LinearGradient2: "linear-gradient(0deg, rgba(0,0, 0,0.383820564516129) 14%, rgba(0,0,0,0.3) 39%)"
+  LinearGradient2:
+    'linear-gradient(0deg, rgba(0,0, 0,0.383820564516129) 14%, rgba(0,0,0,0.3) 39%)'
 }

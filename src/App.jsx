@@ -1,11 +1,5 @@
-import { Suspense } from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Navigate,
-  Routes
-} from 'react-router-dom'
-// import MainNavigation from '@/components/UIElements/Navigation/MainNavigation'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import MainNavigation from '@/components/UIElements/Navigation/MainNavigation'
 import { AuthContext } from '@/context/auth-context'
 import { useAuth } from '@/hooks/auth-hook'
 import Home from './pages/Home'
@@ -15,9 +9,6 @@ import ProtectedRoute from './PrivateRoute'
 
 const App = () => {
   const { token, login, logout, userId, name } = useAuth()
-  console.log("🚀 ~ file: App.jsx:18 ~ App ~ token:", token)
-  let routes
-  
 
   return (
     <AuthContext.Provider
@@ -31,16 +22,18 @@ const App = () => {
       }}
     >
       <Router>
-        {/* <MainNavigation /> */}
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/"
             element={
-              <ProtectedRoute>
+              // <ProtectedRoute>
+              <>
+                <MainNavigation />
                 <Home />
-              </ProtectedRoute>
+              </>
+              // </ProtectedRoute>
             }
           />
         </Routes>

@@ -25,7 +25,7 @@ export const FormControl = styled.div`
 
   label {
     font-weight: bold;
-    margin-bottom: ${rem('5px')};
+    margin-bottom: ${rem('7px')};
   }
 `
 

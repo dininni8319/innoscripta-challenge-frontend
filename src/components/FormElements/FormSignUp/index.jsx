@@ -67,7 +67,7 @@ const FormRegister = ({ signupHandler, inputHandler, loading, formState }) => {
           errorText="Please enter a valid password (at least 6 characters!)"
         />
         <AuthButton onClick={signupHandler} formIsValid={!formState?.isValid}>
-          SEND
+          {loading ? <LoadingSpinner asOverlay /> : 'SIGN UP'}
         </AuthButton>
       </FormWrapper>
     </FormContainer>
