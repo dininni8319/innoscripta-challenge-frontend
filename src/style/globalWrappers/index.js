@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { rem } from 'polished'
 import { Icon } from '../globalIcons'
 
-export const AuthLayout = styled.section`
+export const Flex = styled.section`
   display: flex;
 `
 

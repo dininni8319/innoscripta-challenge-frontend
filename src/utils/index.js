@@ -4,8 +4,6 @@ export const newsApiKey = import.meta.env.VITE_NEWS_API_KEYS
 export const topNewUrl = import.meta.env.VITE_TOP_NEW_API
 
 export const funFormatDate = (str) => {
-  // if (str === '' || str === null) return 'Nessun dato fornito'
-
   let myDate = new Date(str)
   let utc = `
   ${myDate.getDate() < 10 ? '0' + myDate.getDate() : myDate.getDate()}-${
@@ -30,23 +28,16 @@ export const userInitials = (string) =>
     .join('')
 
 export function sortedData(articles) {
-
   
-  let sortedData = articles.sort(compareDates)
-  return sortedData
+  return articles.sort((objA, objB) => {
+    let dateB = new Date(objB.publishedAt).getTime()
+    let dateA = new Date(objA.publishedAt).getTime()
+    return dateB - dateA
+  })
 }
 
-export function compareDates(a, b) {
-  const dateA = funFormatDate(a.publishedAt);
-  console.log("🚀 ~ file: index.js:41 ~ compareDates ~ dateA:", dateA)
-  
-  const dateB = new Date(b.publishedAt);
-
-  if (dateA < dateB) {
-    return -1;
-  }
-  if (dateA > dateB) {
-    return 1;
-  }
-  return 0;
+export const getAllSources = (articles) => {
+  let sources = new Set(articles?.map(article => article.source.name))
+ 
+  return Array.from(sources)
 }

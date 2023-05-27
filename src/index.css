@@ -1,0 +1,12 @@
+.class-input-style {
+  width: 20%;
+  height: 40px;
+  background-color: #f1f2f6;
+  padding: 10px 15px 10px 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+}

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useHttpClient } from '@/hooks/http-hook'
 import { useForm } from '@/hooks/form-hook'
 import { AuthContext } from '@/context/auth-context'
-import { AuthLayout } from '@/style/globalWrappers'
+import { Flex } from '@/style/globalWrappers'
 import { base_url } from '@/utils'
 import ErrorModal from '@/components/UIElements/ErrorModal'
 import FormLogin from '@/components/FormElements/FormSignin'
@@ -59,7 +59,7 @@ const Signin = () => {
   }
 
   return (
-    <AuthLayout>
+    <Flex>
       <ErrorModal onClear={clearError} error={error} />
       <LeftContainer />
       <FormLogin
@@ -68,7 +68,7 @@ const Signin = () => {
         loading={loading}
         formState={formState}
       />
-    </AuthLayout>
+    </Flex>
   )
 }
 

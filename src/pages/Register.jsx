@@ -5,7 +5,7 @@ import FormSignUp from '@/components/FormElements/FormSignUp'
 import { useHttpClient } from '@/hooks/http-hook'
 import { useForm } from '@/hooks/form-hook'
 import { AuthContext } from '@/context/auth-context'
-import { AuthLayout } from '@/style/globalWrappers'
+import { Flex } from '@/style/globalWrappers'
 import { base_url } from '@/utils'
 import ErrorModal from '@/components/UIElements/ErrorModal'
 
@@ -84,7 +84,7 @@ const Signup = () => {
   }
 
   return (
-    <AuthLayout>
+    <Flex>
       <ErrorModal onClear={clearError} error={error || message} />
       <LeftContainer />
       <FormSignUp
@@ -93,7 +93,7 @@ const Signup = () => {
         loading={loading}
         formState={formState}
       />
-    </AuthLayout>
+    </Flex>
   )
 }
 

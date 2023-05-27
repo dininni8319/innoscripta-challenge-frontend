@@ -5,15 +5,21 @@ import {
   newsApiKey,
   topNewUrl,
   daysBefore,
-  sortedData
+  sortedData,
+  getAllSources
 } from '@/utils'
-
 import { inputReducer } from '@/reducers/inputReducer'
 import SearchInput from '@/components/SearchInput'
 import ArticlesList from '@/components/UIElements/ArticlesList'
 import SearchButtons from '@/components/UIElements/SearchButtons'
+import SelectSource from '@/components/FormElements/Select'
 import { newsArticlesData } from '@/utils/newsApiData'
+import styled from 'styled-components';
+import { Flex } from '@/style/globalWrappers'
 
+export const FlexColumn = styled(Flex)`
+  flex-direction: column;
+`
 const initialState = {
   value: ''
 }
@@ -23,7 +29,8 @@ const Home = () => {
   const [topArticles, setTopArticles] = useState([])
   const { sendRequest } = useHttpClient()
   const [pageNum, setPageNum] = useState(1)
-
+  const [reset, setReset] = useState(false)
+  
   const [inputState, dispatch] = useReducer(inputReducer, initialState)
 
   useEffect(() => {
@@ -64,11 +71,38 @@ const Home = () => {
       val: ''
     })
   }
-  const articles = newsArticlesData[0].articles
+  
+  useEffect(() => {
+   setSearchedArticles([...newsArticlesData[0].articles])
+  },[reset])
 
+  const sources = getAllSources(searchedArticles)
+  
+  const handleFilteredBySource = event => {
+    let selectedSource = event.target.value
+
+    let filtered = searchedArticles.filter(article => article.source.name === selectedSource)
+    setSearchedArticles(filtered)
+  }
+
+  const handleFilterByDate = () => {
+    let sorted = sortedData(searchedArticles)
+    console.log(sorted, 'testing the data')
+    setSearchedArticles(prev => ([...sorted]))
+  }
+  
+  const handleReset = () => {
+    setReset(!reset)
+  }
   return (
     <>
       <br />
+      <SearchButtons
+        pageNum={pageNum}
+        setPageNum={setPageNum}
+        searchedArticles={searchedArticles}
+        topArticles={topArticles}
+      />
       <SearchInput
         clearInputSearch={clearInputSearch}
         id="search"
@@ -78,16 +112,22 @@ const Home = () => {
         placeholder="Search..."
         value={inputState.value}
       />
-      <SearchButtons
-        pageNum={pageNum}
-        setPageNum={setPageNum}
-        searchedArticles={searchedArticles}
-        topArticles={topArticles}
-      />
-      <button onClick={() => sortedData(articles)}>Filter By date</button>
-      <br />
-      <br />
-      <ArticlesList articles={articles} />
+      <br/>
+      {searchedArticles.length > 0 && (
+        <FlexColumn>
+          <button className="class-input-style" onClick={handleFilterByDate}>
+            Filter By date
+          </button>
+          <SelectSource
+            sources={sources}
+            handleFilteredBySource={handleFilteredBySource}
+          />
+          <button className="class-input-style" onClick={handleReset}>
+            Go back
+          </button>
+        </FlexColumn>
+      )}
+      <ArticlesList articles={searchedArticles} />
     </>
   )
 }
