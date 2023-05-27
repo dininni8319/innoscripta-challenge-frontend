@@ -10,18 +10,17 @@ export const ArticlesListStyle = styled.ul`
   max-width: 30rem;
 `
 
-const PlaceList = ({ articles }) => {
-  console.log('🚀 ~ file: index.jsx:14 ~ PlaceList ~ articles:', articles)
+const ArticlesList = ({ articles }) => {
 
-  if (articles?.length === 0) {
-    return (
-      <ArticlesListStyle>
-        <Card>
-          <h2>No article was found. Try with another keyword</h2>
-        </Card>
-      </ArticlesListStyle>
-    )
-  }
+  // if (articles?.length === 0) {
+  //   return (
+  //     <ArticlesListStyle>
+  //       <Card>
+  //         <h2>No article was found. Try with another keyword</h2>
+  //       </Card>
+  //     </ArticlesListStyle>
+  //   )
+  // }
 
   return (
     <ArticlesListStyle>
@@ -41,4 +40,4 @@ const PlaceList = ({ articles }) => {
   )
 }
 
-export default PlaceList
+export default ArticlesList

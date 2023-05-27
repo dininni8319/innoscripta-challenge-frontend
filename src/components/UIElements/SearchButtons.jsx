@@ -10,24 +10,47 @@ export const ButtonCounterWrapper = styled.div`
 `
 
 export const ButtonCounterStyle = styled.span`
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   text-align: center;
-  background-color: white;
+  background-color: #ccc;
+  color: white;
   border-radius: 50%;
   cursor: pointer;
+  padding: 3px;
+  font-weight: bold;
+  border: 2px solid gold;
 `
 
-const ButtonCouter = ({ pageNum, setPageNum }) => {
+const ButtonCouter = ({
+  pageNum,
+  setPageNum,
+  searchedArticles,
+  topArticles
+}) => {
+  const increment = () => {
+    let page = pageNum > 10 ? 10 : pageNum++
+    return page
+  }
+
+  const decrement = () => {
+    let page = pageNum === 1 ? 1 : pageNum--
+    return page
+  }
+
   return (
     <ButtonCounterWrapper>
-      <ButtonCounterStyle onClick={() => setPageNum((prev) => prev + 1)}>
-        {pageNum}+
-      </ButtonCounterStyle>
+      {topArticles.length === 0 && searchedArticles.length > 0 && (
+        <>
+          <ButtonCounterStyle onClick={() => setPageNum(() => decrement())}>
+            {pageNum}
+          </ButtonCounterStyle>
 
-      <ButtonCounterStyle onClick={() => setPageNum((prev) => prev - 1)}>
-        {pageNum} -
-      </ButtonCounterStyle>
+          <ButtonCounterStyle onClick={() => setPageNum(() => increment())}>
+            {pageNum + 1}
+          </ButtonCounterStyle>
+        </>
+      )}
     </ButtonCounterWrapper>
   )
 }
