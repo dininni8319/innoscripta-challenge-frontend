@@ -11,16 +11,15 @@ export const ArticlesListStyle = styled.ul`
 `
 
 const ArticlesList = ({ articles }) => {
-
-  // if (articles?.length === 0) {
-  //   return (
-  //     <ArticlesListStyle>
-  //       <Card>
-  //         <h2>No article was found. Try with another keyword</h2>
-  //       </Card>
-  //     </ArticlesListStyle>
-  //   )
-  // }
+  if (articles?.length === 0) {
+    return (
+      <ArticlesListStyle>
+        <Card>
+          <h2>No article was found. Try with another keyword</h2>
+        </Card>
+      </ArticlesListStyle>
+    )
+  }
 
   return (
     <ArticlesListStyle>

@@ -3,15 +3,8 @@ import { FormControl, IconWrapper } from '@/style/globalWrappers'
 import { AuthInput } from '../FormElements/InputStyle'
 
 const SearchInput = (props) => {
-  const {
-    id,
-    type,
-    placeHolder,
-    label,
-    value,
-    dispatch,
-    clearInputSearch,
-  } = props
+  const { id, type, placeHolder, label, value, dispatch, clearInputSearch } =
+    props
 
   const changeHandler = (event) => {
     dispatch({

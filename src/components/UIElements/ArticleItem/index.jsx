@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Card from '../Card'
 import { funFormatDate } from '@/utils'
-
+import defaultImage from '@/assets/images/news.avif'
 export const ArticleItemStyle = styled.li`
   margin: 1rem 0;
 
@@ -68,9 +68,8 @@ const ArticleItem = (props) => {
   return (
     <ArticleItemStyle className="place-item">
       <Card className="place-item__content">
-        {/* {loading && <LoadingSpinner asOverlay />} */}
         <div className="place-item__image">
-          <img src={`${urlToImage}`} alt={title} />
+          <img src={`${urlToImage || defaultImage}`} alt={title} />
         </div>
         <div className="place-item__info">
           <h2>Title: {title}</h2>

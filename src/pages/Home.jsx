@@ -1,10 +1,18 @@
-import { useState, useEffect, useReducer } from 'react'
+import { useState, useEffect, useReducer, useMemo } from 'react'
 import { useHttpClient } from '@/hooks/http-hook'
-import { newsApiUrl, newsApiKey, topNewUrl, daysBefore } from '@/utils'
+import {
+  newsApiUrl,
+  newsApiKey,
+  topNewUrl,
+  daysBefore,
+  sortedData
+} from '@/utils'
+
 import { inputReducer } from '@/reducers/inputReducer'
 import SearchInput from '@/components/SearchInput'
 import ArticlesList from '@/components/UIElements/ArticlesList'
 import SearchButtons from '@/components/UIElements/SearchButtons'
+import { newsArticlesData } from '@/utils/newsApiData'
 
 const initialState = {
   value: ''
@@ -17,17 +25,17 @@ const Home = () => {
   const [pageNum, setPageNum] = useState(1)
 
   const [inputState, dispatch] = useReducer(inputReducer, initialState)
-  
+
   useEffect(() => {
-     const fetchTopNews = async () => {
-       try {
-         const responseData = await sendRequest(
-           `${topNewUrl}?from=${daysBefore(5)}&country=us&apiKey=${newsApiKey}`
-          )
-         setTopArticles((prevState) => responseData.articles?.concat(prevState))
-       } catch (error) {}
-     }
-     fetchTopNews()
+    const fetchTopNews = async () => {
+      try {
+        const responseData = await sendRequest(
+          `${topNewUrl}?from=${daysBefore(5)}&country=us&apiKey=${newsApiKey}`
+        )
+        setTopArticles((prevState) => responseData.articles?.concat(prevState))
+      } catch (error) {}
+    }
+    fetchTopNews()
   }, [])
 
   useEffect(() => {
@@ -35,7 +43,9 @@ const Home = () => {
       const fetchArticles = async () => {
         try {
           const responseData = await sendRequest(
-            `${newsApiUrl}/everything?q=${inputState.value}&from=${daysBefore(1)}&sortBy=publishedAt&apiKey=${newsApiKey}&page=${pageNum}&pageSize=12`
+            `${newsApiUrl}/everything?q=${inputState.value}&from=${daysBefore(
+              1
+            )}&sortBy=publishedAt&apiKey=${newsApiKey}&page=${pageNum}&pageSize=12`
           )
           setTopArticles([])
           setSearchedArticles((prevState) =>
@@ -51,9 +61,10 @@ const Home = () => {
     setSearchedArticles([])
     dispatch({
       type: 'SEARCH_CHANGE',
-      val: ""
+      val: ''
     })
   }
+  const articles = newsArticlesData[0].articles
 
   return (
     <>
@@ -73,10 +84,10 @@ const Home = () => {
         searchedArticles={searchedArticles}
         topArticles={topArticles}
       />
+      <button onClick={() => sortedData(articles)}>Filter By date</button>
       <br />
       <br />
-      <ArticlesList articles={searchedArticles} />
-      <ArticlesList articles={topArticles} />
+      <ArticlesList articles={articles} />
     </>
   )
 }
