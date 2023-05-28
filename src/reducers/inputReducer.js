@@ -19,6 +19,11 @@ export const inputReducer = (state, action) => {
         ...state,
         value: action.val
       }
+    case 'ON_AUTHOR_CHANGE':
+      return {
+        ...state,
+        value: action.val
+      }
     default:
       return state
   }

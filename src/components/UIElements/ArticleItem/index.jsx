@@ -3,6 +3,7 @@ import Card from '../Card'
 import { funFormatDate } from '@/utils'
 import defaultImage from '@/assets/images/news.avif'
 import { Link } from "react-router-dom";
+
 export const ArticleItemStyle = styled.li`
   margin: 1rem 0;
 
@@ -66,11 +67,10 @@ export const ArticleItemStyle = styled.li`
 
 const ArticleItem = (props) => {
   const { id, author, title, content, description, urlToImage, publishedAt } = props
-  console.log("🚀 ~ file: index.jsx:69 ~ ArticleItem ~ id:", id)
   
   return (
     <ArticleItemStyle className="place-item">
-      <Link to={`/articles/${id}`}>
+      <Link to={`/article/${id}`}>
         <Card className="place-item__content">
           <div className="place-item__image">
             <img src={`${urlToImage || defaultImage}`} alt={title} />

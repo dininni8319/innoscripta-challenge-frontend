@@ -24,11 +24,22 @@ const initialState = {
 const Home = () => {
   const [searchedArticles, setSearchedArticles] = useState([])
   const [topArticles, setTopArticles] = useState([])
+  const [selectedAuthor, setSelectedAuthor] = useState('')
+  const [selectedSource, setSelectedSource] = useState('')
   const { sendRequest } = useHttpClient()
   const [pageNum, setPageNum] = useState(1)
   const [reset, setReset] = useState(false)
   const [inputState, dispatch] = useReducer(inputReducer, initialState)
 
+  const preferenceSettings = () => {
+    const preference = {
+      author: selectedAuthor,
+      source: selectedSource,
+      category: ''
+    }
+
+    localStorage.setItem("preference", JSON.stringify(preference))
+  }
   useEffect(() => {
     const fetchTopNews = async () => {
       try {
@@ -69,6 +80,16 @@ const Home = () => {
   }
   
   useEffect(() => {
+   let preference = JSON.parse(localStorage.getItem('preference'))
+   if (preference) {
+     let source = preference.source
+     let author = preference.author
+     let category = preference.category
+     let defaultPreference = searchedArticles.filter(el => el.author === author && el.source.name === source)
+     console.log("🚀 ~ file: Home.jsx:89 ~ useEffect ~ defaultPreference:", defaultPreference)
+     
+     setSearchedArticles(defaultPreference)
+   }
    setSearchedArticles([...newsArticlesData[0].articles])
   },[reset])
 
@@ -77,18 +98,19 @@ const Home = () => {
   
   const handleFilteredBySource = event => {
     let selectedSource = event.target.value
-
+    setSelectedSource(selectedSource)
     let filtered = searchedArticles?.filter(article => article.source.name === selectedSource)
     setSearchedArticles(filtered)
   }
 
   const handleFilteredByAuthor = (event) => {
-    let selectedSource = event.target.value
+    let selectedAuthor = event.target.value
 
+    setSelectedAuthor(selectedAuthor)
     let filtered = searchedArticles?.filter(
-      (article) => article.author === selectedSource
+      (article) => article.author === selectedAuthor
     )
-
+    
     setSearchedArticles(filtered)
   }
 
@@ -143,6 +165,7 @@ const Home = () => {
               handleFilteredBySource={handleFilteredBySource}
               text="a source"
             />
+            <button onClick={preferenceSettings}>Save preferences</button>
           </FlexColumn>
         )}
         <ArticlesList articles={searchedArticles} />
