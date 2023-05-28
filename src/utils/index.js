@@ -42,6 +42,7 @@ export const getAllSources = (articles, key) => {
     data = new Set(articles?.map(article => article[key]))
     return Array.from(data)
   }
+
   data = new Set(articles?.map(article => article.source[key]))
  
   return Array.from(data)
