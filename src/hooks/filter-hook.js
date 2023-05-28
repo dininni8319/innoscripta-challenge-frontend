@@ -1,10 +1,12 @@
 import { useState, useEffect, useMemo } from 'react'
-import {
-  getAllSources,
-  sortedData,
-} from '@/utils'
+import { getAllSources, sortedData } from '@/utils'
 
-export const useFilter = (searchedArticles, setSearchedArticles, dispatch, inputState) => {
+export const useFilter = (
+  searchedArticles,
+  setSearchedArticles,
+  dispatch,
+  inputState
+) => {
   const [selectedAuthor, setSelectedAuthor] = useState('')
   const [selectedSource, setSelectedSource] = useState('')
   const [reset, setReset] = useState(false)
@@ -22,26 +24,28 @@ export const useFilter = (searchedArticles, setSearchedArticles, dispatch, input
     let data = getAllSources(searchedArticles, 'name')
     return data
   }, [debounce])
-  
+
   let authors = useMemo(() => {
-      let data = getAllSources(searchedArticles, 'author')
-      return data
+    let data = getAllSources(searchedArticles, 'author')
+    return data
   }, [debounce])
 
   const handleReset = () => {
     setReset(!reset)
   }
 
-  const handleFilteredBySource = event => {
+  const handleFilteredBySource = (event) => {
     let selectedSource = event.target.value
 
     setSelectedSource(selectedSource)
-    let filtered = searchedArticles?.filter(article => article.source.name === selectedSource)
-    
+    let filtered = searchedArticles?.filter(
+      (article) => article.source.name === selectedSource
+    )
+
     setSearchedArticles(filtered)
   }
 
-  const handleFilteredByAuthor = event => {
+  const handleFilteredByAuthor = (event) => {
     let selectedAuthor = event.target.value
 
     setSelectedAuthor(selectedAuthor)
@@ -54,7 +58,7 @@ export const useFilter = (searchedArticles, setSearchedArticles, dispatch, input
 
   const handleFilterByDate = () => {
     let sorted = sortedData(searchedArticles)
-    setSearchedArticles(prev => ([...sorted]))
+    setSearchedArticles((prev) => [...sorted])
   }
 
   const handlePreferences = () => {
@@ -66,7 +70,7 @@ export const useFilter = (searchedArticles, setSearchedArticles, dispatch, input
 
     localStorage.setItem('preference', JSON.stringify(preference))
   }
-  
+
   const clearInputSearch = () => {
     setSearchedArticles([])
     dispatch({
@@ -98,7 +102,7 @@ export const useFilter = (searchedArticles, setSearchedArticles, dispatch, input
     handleReset,
     clearInputSearch,
     handleFilteredBySource,
-    handleFilteredByAuthor, 
+    handleFilteredByAuthor,
     handleFilterByDate,
     handlePreferences
   }

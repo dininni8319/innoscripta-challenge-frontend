@@ -30,7 +30,6 @@ export const userInitials = (string) =>
     .join('')
 
 export function sortedData(articles) {
-  
   return articles.sort((objA, objB) => {
     let dateB = new Date(objB.publishedAt).getTime()
     let dateA = new Date(objA.publishedAt).getTime()
@@ -40,12 +39,12 @@ export function sortedData(articles) {
 
 export const getAllSources = (articles, key) => {
   let data
-  if (key === "author") {
-    data = new Set(articles?.map(article => article[key]))
+  if (key === 'author') {
+    data = new Set(articles?.map((article) => article[key]))
     return Array.from(data)
   }
 
-  data = new Set(articles?.map(article => article.source[key]))
- 
+  data = new Set(articles?.map((article) => article.source[key]))
+
   return Array.from(data)
 }

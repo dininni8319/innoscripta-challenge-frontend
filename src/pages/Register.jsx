@@ -84,7 +84,7 @@ const Signup = () => {
   }
 
   return (
-    <Flex>
+    <Flex justifyContent="start">
       <ErrorModal onClear={clearError} error={error || message} />
       <LeftContainer />
       <FormSignUp

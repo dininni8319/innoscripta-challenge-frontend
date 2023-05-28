@@ -4,10 +4,11 @@ import { Icon } from '../globalIcons'
 
 export const Flex = styled.section`
   display: flex;
+
   @media screen and (max-width: 750px) {
-   display: block;
-   align-items: center;
-   margin-left: 10px;
+    justify-content: ${(props) => props.justifyContent};
+    display: block;
+    align-items: center;
   }
 `
 

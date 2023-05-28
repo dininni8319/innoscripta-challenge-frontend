@@ -2,18 +2,17 @@ import styled from 'styled-components'
 import Card from '../Card'
 import { funFormatDate } from '@/utils'
 import defaultImage from '@/assets/images/news.avif'
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
+import { rem } from 'polished'
 
 export const ArticleItemStyle = styled.li`
-  margin: 1rem 0;
-
+  margin-bottom: ${rem('10px')};
   .place-item__content {
     padding: 0;
   }
 
   .place-item__info {
     padding: 1rem;
-    text-align: center;
   }
 
   .place-item__image {
@@ -34,28 +33,10 @@ export const ArticleItemStyle = styled.li`
     margin: 0 0 0.5rem 0;
   }
 
-  .place-item__actions {
-    padding: 1rem;
-    text-align: center;
-    border-top: 1px solid #ccc;
-  }
-
-  .place-item__modal-content {
-    padding: 0;
-  }
-
-  .place-item__modal-actions {
-    text-align: right;
-  }
-
-  .place-item__actions button,
-  .place-item__actions a {
-    margin: 0.5rem;
-  }
-
-  .map-container {
-    height: 15rem;
-    width: 100%;
+  span {
+    color: #4e4d4d;
+    font-size: 14px;
+    font-weight: 300;
   }
 
   @media (min-width: 768px) {
@@ -66,8 +47,9 @@ export const ArticleItemStyle = styled.li`
 `
 
 const ArticleItem = (props) => {
-  const { id, author, title, content, description, urlToImage, publishedAt } = props
-  
+  const { id, author, title, content, description, urlToImage, publishedAt } =
+    props
+
   return (
     <ArticleItemStyle className="place-item">
       <Link to={`/article/${id}`}>
@@ -76,12 +58,25 @@ const ArticleItem = (props) => {
             <img src={`${urlToImage || defaultImage}`} alt={title} />
           </div>
           <div className="place-item__info">
-            <h2>Title: {title}</h2>
+            <h2>
+              Title: <span>{title}</span>
+            </h2>
             <h3>
-              Author{author} <span>Published:{funFormatDate(publishedAt)}</span>
+              Author: <span>{author}</span>
             </h3>
-            <p>{content?.slice(0, 40)}</p>
-            <p>{description?.slice(0, 40)}</p>
+            <h3>
+              Published:<span>{funFormatDate(publishedAt)}</span>
+            </h3>
+            <p>
+              <b>Content: </b>
+              {content?.length > 0
+                ? content?.slice(0, 50) + '...'
+                : 'content not available'}
+            </p>
+            <p>
+              <b>Description: </b>
+              {description?.slice(0, 50)}...
+            </p>
           </div>
         </Card>
       </Link>

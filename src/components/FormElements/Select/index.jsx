@@ -1,5 +1,4 @@
 const SelectSource = ({ sources, handleFilteredBySource, text }) => {
-  
   return (
     <select onChange={handleFilteredBySource} className="class-input-style">
       <option selected>Please select {text}</option>
@@ -13,6 +12,5 @@ const SelectSource = ({ sources, handleFilteredBySource, text }) => {
     </select>
   )
 }
-
 
 export default SelectSource

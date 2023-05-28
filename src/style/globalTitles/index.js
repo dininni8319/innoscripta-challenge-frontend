@@ -9,7 +9,7 @@ export const Title = styled.h2`
 
 export const PreferenceTitle = styled(Title)`
   font-size: ${rem('18px')};
-  margin: ${rem('20px')} ${rem("5px")};
+  margin: ${rem('20px')} ${rem('5px')};
 `
 
 export const Message = styled.p`

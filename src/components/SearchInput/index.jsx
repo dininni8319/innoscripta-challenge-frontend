@@ -1,9 +1,15 @@
 import { FormControl, IconWrapper } from '@/style/globalWrappers'
 import { AuthInput } from '../FormElements/InputStyle'
-import styled from 'styled-components';
+import styled from 'styled-components'
+import { rem } from 'polished'
 
 export const SearchInputStyle = styled(AuthInput)`
-  width: 20%;
+  width: ${rem('345px')};
+
+  @media (max-width: 750px) {
+    margin-left: ${rem('15px')};
+    width: 89%;
+  }
 `
 const SearchInput = (props) => {
   const { id, type, placeHolder, label, value, dispatch, clearInputSearch } =

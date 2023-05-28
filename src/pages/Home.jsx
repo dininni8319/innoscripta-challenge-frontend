@@ -8,7 +8,7 @@ import {
   daysBefore,
   guardianApiKey
 } from '@/utils'
-  
+
 import { inputReducer } from '@/reducers/inputReducer'
 import SearchInput from '@/components/SearchInput'
 import ArticlesList from '@/components/UIElements/ArticlesList'
@@ -18,13 +18,14 @@ import SelectSource from '@/components/FormElements/Select'
 import { FlexColumn, Flex } from '@/style/globalWrappers'
 import { PreferenceTitle } from '@/style/globalTitles'
 import { useFilter } from '@/hooks/filter-hook'
+import TopNewsCard from '../components/UIElements/TopNewsCard'
 
 const Home = () => {
   const [searchedArticles, setSearchedArticles] = useState([])
   const [topArticles, setTopArticles] = useState([])
   const { sendRequest } = useHttpClient()
   const [pageNum, setPageNum] = useState(1)
-  const [inputState, dispatch] = useReducer(inputReducer, {value: ""})
+  const [inputState, dispatch] = useReducer(inputReducer, { value: '' })
   const {
     sources,
     authors,
@@ -43,15 +44,18 @@ const Home = () => {
         const responseData = await sendRequest(
           `${guardianNewUrl}${inputState.value}&tag=${tag}/${tag}&from-date=2023-04-01&api-key=${guardianApiKey}`
         )
-        console.log("🚀 ~ file: Home.jsx:47 ~ fetchGuardianNews ~ responseData:", responseData)
-        
+        console.log(
+          '🚀 ~ file: Home.jsx:47 ~ fetchGuardianNews ~ responseData:',
+          responseData
+        )
+
         // setSearchedArticles((prevState) =>
         //   responseData.articles?.concat(prevState)
         // )
       } catch (error) {}
     }
     fetchGuardianNews()
-  },[inputState.value])
+  }, [inputState.value])
   useEffect(() => {
     const fetchTopNews = async () => {
       try {
@@ -84,7 +88,7 @@ const Home = () => {
       fetchArticles()
     }
   }, [sendRequest, inputState.value, pageNum])
-  
+
   return (
     <>
       <SearchButtons
@@ -93,16 +97,18 @@ const Home = () => {
         searchedArticles={searchedArticles}
         topArticles={topArticles}
       />
-      <SearchInput
-        clearInputSearch={clearInputSearch}
-        id="search"
-        type="text"
-        label="Search"
-        dispatch={dispatch}
-        placeholder="Search..."
-        value={inputState.value}
-      />
-      <Flex>
+      <Flex justifyContent="center">
+        <SearchInput
+          clearInputSearch={clearInputSearch}
+          id="search"
+          type="text"
+          label="Search"
+          dispatch={dispatch}
+          placeholder="Search..."
+          value={inputState.value}
+        />
+      </Flex>
+      <Flex justifyContent="start">
         {searchedArticles.length > 0 && (
           <FlexColumn>
             <button className="class-input-style" onClick={handleFilterByDate}>
@@ -127,10 +133,16 @@ const Home = () => {
               handleFilteredBySource={handleFilteredBySource}
               text="a source"
             />
-            <button onClick={handlePreferences}>Save preferences</button>
+            <button className="class-input-style" onClick={handlePreferences}>
+              Save preferences
+            </button>
           </FlexColumn>
         )}
+        <br />
         <ArticlesList articles={searchedArticles} />
+        <div className="class-align-center">
+          <TopNewsCard />
+        </div>
       </Flex>
     </>
   )
