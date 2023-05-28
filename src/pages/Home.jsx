@@ -4,8 +4,11 @@ import {
   newsApiUrl,
   newsApiKey,
   topNewUrl,
+  guardianNewUrl,
   daysBefore,
+  guardianApiKey
 } from '@/utils'
+  
 import { inputReducer } from '@/reducers/inputReducer'
 import SearchInput from '@/components/SearchInput'
 import ArticlesList from '@/components/UIElements/ArticlesList'
@@ -33,6 +36,22 @@ const Home = () => {
     handlePreferences
   } = useFilter(searchedArticles, setSearchedArticles, dispatch, inputState)
 
+  const tag = 'politics'
+  useEffect(() => {
+    const fetchGuardianNews = async () => {
+      try {
+        const responseData = await sendRequest(
+          `${guardianNewUrl}${inputState.value}&tag=${tag}/${tag}&from-date=2023-04-01&api-key=${guardianApiKey}`
+        )
+        console.log("🚀 ~ file: Home.jsx:47 ~ fetchGuardianNews ~ responseData:", responseData)
+        
+        // setSearchedArticles((prevState) =>
+        //   responseData.articles?.concat(prevState)
+        // )
+      } catch (error) {}
+    }
+    fetchGuardianNews()
+  },[inputState.value])
   useEffect(() => {
     const fetchTopNews = async () => {
       try {
@@ -65,7 +84,7 @@ const Home = () => {
       fetchArticles()
     }
   }, [sendRequest, inputState.value, pageNum])
-
+  
   return (
     <>
       <SearchButtons

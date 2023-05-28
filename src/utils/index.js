@@ -2,6 +2,8 @@ export const base_url = import.meta.env.VITE_BASE_URL
 export const newsApiUrl = import.meta.env.VITE_NEWS_API_URL
 export const newsApiKey = import.meta.env.VITE_NEWS_API_KEYS
 export const topNewUrl = import.meta.env.VITE_TOP_NEW_API
+export const guardianNewUrl = import.meta.env.VITE_API_URL_PATH
+export const guardianApiKey = import.meta.env.VITE_GUARDIAN_API_KEY
 
 export const funFormatDate = (str) => {
   let myDate = new Date(str)
