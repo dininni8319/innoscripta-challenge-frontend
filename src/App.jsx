@@ -5,6 +5,7 @@ import { useAuth } from '@/hooks/auth-hook'
 import Home from './pages/Home'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
+import ArticleDetail from '@/pages/ArticleDetail'
 import ProtectedRoute from './PrivateRoute'
 
 const App = () => {
@@ -25,6 +26,12 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/article/:slag" element={
+            <>
+              <MainNavigation />
+              <ArticleDetail />
+            </>
+          } />
           <Route
             path="/"
             element={

@@ -14,12 +14,9 @@ import ArticlesList from '@/components/UIElements/ArticlesList'
 import SearchButtons from '@/components/UIElements/SearchButtons'
 import SelectSource from '@/components/FormElements/Select'
 import { newsArticlesData } from '@/utils/newsApiData'
-import styled from 'styled-components';
-import { Flex } from '@/style/globalWrappers'
+import { FlexColumn, Flex } from '@/style/globalWrappers'
+import { PreferenceTitle } from '../style/globalTitles'
 
-export const FlexColumn = styled(Flex)`
-  flex-direction: column;
-`
 const initialState = {
   value: ''
 }
@@ -30,7 +27,6 @@ const Home = () => {
   const { sendRequest } = useHttpClient()
   const [pageNum, setPageNum] = useState(1)
   const [reset, setReset] = useState(false)
-  
   const [inputState, dispatch] = useReducer(inputReducer, initialState)
 
   useEffect(() => {
@@ -76,27 +72,37 @@ const Home = () => {
    setSearchedArticles([...newsArticlesData[0].articles])
   },[reset])
 
-  const sources = getAllSources(searchedArticles)
+  const sources = getAllSources(searchedArticles, 'name')
+  let authors = getAllSources(searchedArticles, 'author')
   
   const handleFilteredBySource = event => {
     let selectedSource = event.target.value
 
-    let filtered = searchedArticles.filter(article => article.source.name === selectedSource)
+    let filtered = searchedArticles?.filter(article => article.source.name === selectedSource)
+    setSearchedArticles(filtered)
+  }
+
+  const handleFilteredByAuthor = (event) => {
+    let selectedSource = event.target.value
+
+    let filtered = searchedArticles?.filter(
+      (article) => article.author === selectedSource
+    )
+
     setSearchedArticles(filtered)
   }
 
   const handleFilterByDate = () => {
     let sorted = sortedData(searchedArticles)
-    console.log(sorted, 'testing the data')
     setSearchedArticles(prev => ([...sorted]))
   }
   
   const handleReset = () => {
     setReset(!reset)
   }
+
   return (
     <>
-      <br />
       <SearchButtons
         pageNum={pageNum}
         setPageNum={setPageNum}
@@ -112,22 +118,35 @@ const Home = () => {
         placeholder="Search..."
         value={inputState.value}
       />
-      <br/>
-      {searchedArticles.length > 0 && (
-        <FlexColumn>
-          <button className="class-input-style" onClick={handleFilterByDate}>
-            Filter By date
-          </button>
-          <SelectSource
-            sources={sources}
-            handleFilteredBySource={handleFilteredBySource}
-          />
-          <button className="class-input-style" onClick={handleReset}>
-            Go back
-          </button>
-        </FlexColumn>
-      )}
-      <ArticlesList articles={searchedArticles} />
+      <Flex>
+        {searchedArticles.length > 0 && (
+          <FlexColumn>
+            <button className="class-input-style" onClick={handleFilterByDate}>
+              Filter By date
+            </button>
+            <SelectSource
+              sources={sources}
+              handleFilteredBySource={handleFilteredBySource}
+              text="a source"
+            />
+            <button className="class-input-style" onClick={handleReset}>
+              Go back
+            </button>
+            <PreferenceTitle>Set your preferences</PreferenceTitle>
+            <SelectSource
+              sources={authors}
+              handleFilteredBySource={handleFilteredByAuthor}
+              text="an author"
+            />
+            <SelectSource
+              sources={sources}
+              handleFilteredBySource={handleFilteredBySource}
+              text="a source"
+            />
+          </FlexColumn>
+        )}
+        <ArticlesList articles={searchedArticles} />
+      </Flex>
     </>
   )
 }

@@ -4,6 +4,20 @@ import { Icon } from '../globalIcons'
 
 export const Flex = styled.section`
   display: flex;
+  @media screen and (max-width: 750px) {
+   display: block;
+   align-items: center;
+   margin-left: 10px;
+  }
+`
+
+export const FlexColumn = styled(Flex)`
+  flex-direction: column;
+  width: 30%;
+  @media screen and (max-width: 750px) {
+    width: 100%;
+    align-items: center;
+  }
 `
 
 export const TopTitleWrapper = styled.div`

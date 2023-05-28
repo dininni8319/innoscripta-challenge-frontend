@@ -36,8 +36,13 @@ export function sortedData(articles) {
   })
 }
 
-export const getAllSources = (articles) => {
-  let sources = new Set(articles?.map(article => article.source.name))
+export const getAllSources = (articles, key) => {
+  let data
+  if (key === "author") {
+    data = new Set(articles?.map(article => article[key]))
+    return Array.from(data)
+  }
+  data = new Set(articles?.map(article => article.source[key]))
  
-  return Array.from(sources)
+  return Array.from(data)
 }

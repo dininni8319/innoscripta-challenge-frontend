@@ -1,7 +1,8 @@
-const SelectSource = ({ sources, handleFilteredBySource }) => {
+const SelectSource = ({ sources, handleFilteredBySource, text }) => {
+  
   return (
     <select onChange={handleFilteredBySource} className="class-input-style">
-      <option selected>Please select a source</option>
+      <option selected>Please select {text}</option>
       {sources?.map((source) => {
         return (
           <option value={source} key={source}>

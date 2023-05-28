@@ -26,6 +26,7 @@ const ArticlesList = ({ articles }) => {
       {articles?.map((article) => (
         <ArticleItem
           key={article.id}
+          id={article.id}
           author={article.author}
           title={article.title}
           content={article.content}

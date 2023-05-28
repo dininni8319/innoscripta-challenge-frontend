@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import Card from '../Card'
+import Card from '@/components/UIElements/Card'
 import { funFormatDate } from '@/utils'
 import defaultImage from '@/assets/images/news.avif'
-import { Link } from "react-router-dom";
+
 export const ArticleItemStyle = styled.li`
+  height: 70vh;
   margin: 1rem 0;
 
   .place-item__content {
@@ -52,39 +53,30 @@ export const ArticleItemStyle = styled.li`
     margin: 0.5rem;
   }
 
-  .map-container {
-    height: 15rem;
-    width: 100%;
-  }
-
   @media (min-width: 768px) {
     .place-item__image {
-      height: 20rem;
+      height: 25rem;
     }
   }
 `
 
 const ArticleItem = (props) => {
-  const { id, author, title, content, description, urlToImage, publishedAt } = props
-  console.log("🚀 ~ file: index.jsx:69 ~ ArticleItem ~ id:", id)
-  
+  const { author, title, content, description, urlToImage, publishedAt } = props
   return (
     <ArticleItemStyle className="place-item">
-      <Link to={`/articles/${id}`}>
-        <Card className="place-item__content">
-          <div className="place-item__image">
-            <img src={`${urlToImage || defaultImage}`} alt={title} />
-          </div>
-          <div className="place-item__info">
-            <h2>Title: {title}</h2>
-            <h3>
-              Author{author} <span>Published:{funFormatDate(publishedAt)}</span>
-            </h3>
-            <p>{content?.slice(0, 40)}</p>
-            <p>{description?.slice(0, 40)}</p>
-          </div>
-        </Card>
-      </Link>
+      <Card className="place-item__content">
+        <div className="place-item__image">
+          <img src={`${urlToImage || defaultImage}`} alt={title} />
+        </div>
+        <div className="place-item__info">
+          <h2>Title: {title}</h2>
+          <h3>
+            Author{author} <span>Published:{funFormatDate(publishedAt)}</span>
+          </h3>
+          <p>{content?.slice(0, 40)}</p>
+          <p>{description?.slice(0, 40)}</p>
+        </div>
+      </Card>
     </ArticleItemStyle>
   )
 }
