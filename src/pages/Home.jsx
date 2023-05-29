@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer, useMemo } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import { useHttpClient } from '@/hooks/http-hook'
 import {
   newsApiUrl,
@@ -27,6 +27,7 @@ const Home = () => {
   const { sendRequest } = useHttpClient()
   const [pageNum, setPageNum] = useState(1)
   const [inputState, dispatch] = useReducer(inputReducer, { value: '' })
+  const articles = newsArticlesData[0].articles
   const {
     sources,
     authors,
@@ -36,8 +37,10 @@ const Home = () => {
     handleFilteredByAuthor,
     handleFilterByDate,
     handlePreferences
-  } = useFilter(searchedArticles, setSearchedArticles, dispatch, inputState)
+  } = useFilter(articles, setSearchedArticles, dispatch, inputState)
  
+  const preference = JSON.parse(localStorage.getItem("preference"))
+
   useEffect(() => {
     const fetchTopNews = async () => {
       try {
@@ -59,18 +62,51 @@ const Home = () => {
               1
             )}&sortBy=publishedAt&apiKey=${newsApiKey}&page=${pageNum}&pageSize=12`
           )
-          console.log("🚀 ~ file: Home.jsx:78 ~ fetchArticles ~ responseData:", responseData)
           setSearchedArticles((prevState) =>
             responseData.articles?.concat(prevState)
           )
         } catch (error) {}
       }
       fetchArticles()
-    }
+    } 
   }, [sendRequest, inputState.value, pageNum])
+  
+   useEffect(() => {
+     
+     if (preference) {
+        let filteredSource = articles?.filter(
+          (article) => article.source.name === preference.source
+        )
+        let filteredAuthor = filteredSource?.filter(
+          (article) => article.author === preference.author
+        )
+        console.log(
+          '🚀 ~ file: Home.jsx:95 ~ fetchArticles ~ filteredAuthor:',
+          filteredAuthor
+        )
+        setSearchedArticles(filteredAuthor)
 
-  const articles = newsArticlesData[0].articles
-  console.log("🚀 ~ file: Home.jsx:73 ~ Home ~ articles:", articles)
+      //  const fetchArticles = async () => {
+      //    try {
+          //  const responseData = await sendRequest(
+          //    `${newsApiUrl}/everything?source=${preference.source}&from=${daysBefore(
+          //      1
+          //    )}&sortBy=publishedAt&apiKey=${newsApiKey}&page=${pageNum}&pageSize=12`
+          //  )
+
+          //  let filtered = searchedArticles?.filter(
+          //    (article) => article.author === selectedAuthor
+          //  )
+         
+          //  setSearchedArticles((prevState) =>
+          //    responseData.articles?.concat(prevState)
+          //  )
+        //  } catch (error) {}
+       }
+      //  fetchArticles()
+    //  }
+   }, [sendRequest, inputState.value, pageNum])
+  
   return (
     <>
       <SearchButtons
@@ -121,7 +157,7 @@ const Home = () => {
           </FlexColumn>
         )}
         <br />
-        <ArticlesList articles={articles} />
+        <ArticlesList articles={searchedArticles} />
         {/* <ArticlesList articles={searchedArticles} /> */}
         <div className="class-align-center">
           {topArticles?.map((topArticle) => (

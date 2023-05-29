@@ -79,21 +79,6 @@ export const useFilter = (
     })
   }
 
-  useEffect(() => {
-    let preference = JSON.parse(localStorage.getItem('preference'))
-    if (preference) {
-      let source = preference.source
-      let author = preference.author
-      let category = preference.category
-      let defaultPreference = searchedArticles.filter(
-        (el) => el.author === author && el.source.name === source
-      )
-
-      setSearchedArticles(defaultPreference)
-    }
-    //  setSearchedArticles([...newsArticlesData[0].articles])
-  }, [reset])
-
   return {
     sources,
     authors,
