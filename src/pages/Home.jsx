@@ -20,6 +20,7 @@ import { PreferenceTitle } from '@/style/globalTitles'
 import { useFilter } from '@/hooks/filter-hook'
 import TopNewsCard from '../components/UIElements/TopNewsCard'
 
+
 const Home = () => {
   const [searchedArticles, setSearchedArticles] = useState([])
   const [topArticles, setTopArticles] = useState([])
@@ -72,39 +73,15 @@ const Home = () => {
   }, [sendRequest, inputState.value, pageNum])
   
    useEffect(() => {
-     
-     if (preference) {
+    if (preference) {
         let filteredSource = articles?.filter(
           (article) => article.source.name === preference.source
         )
         let filteredAuthor = filteredSource?.filter(
           (article) => article.author === preference.author
         )
-        console.log(
-          '🚀 ~ file: Home.jsx:95 ~ fetchArticles ~ filteredAuthor:',
-          filteredAuthor
-        )
         setSearchedArticles(filteredAuthor)
-
-      //  const fetchArticles = async () => {
-      //    try {
-          //  const responseData = await sendRequest(
-          //    `${newsApiUrl}/everything?source=${preference.source}&from=${daysBefore(
-          //      1
-          //    )}&sortBy=publishedAt&apiKey=${newsApiKey}&page=${pageNum}&pageSize=12`
-          //  )
-
-          //  let filtered = searchedArticles?.filter(
-          //    (article) => article.author === selectedAuthor
-          //  )
-         
-          //  setSearchedArticles((prevState) =>
-          //    responseData.articles?.concat(prevState)
-          //  )
-        //  } catch (error) {}
-       }
-      //  fetchArticles()
-    //  }
+    }
    }, [sendRequest, inputState.value, pageNum])
   
   return (
@@ -126,7 +103,7 @@ const Home = () => {
           value={inputState.value}
         />
       </Flex>
-      <Flex justifyContent="start">
+      <Flex justifyContent="center">
         {articles?.length > 0 && (
           <FlexColumn>
             <button className="class-input-style" onClick={handleFilterByDate}>
@@ -157,11 +134,13 @@ const Home = () => {
           </FlexColumn>
         )}
         <br />
-        <ArticlesList articles={searchedArticles} />
-        {/* <ArticlesList articles={searchedArticles} /> */}
+        <Flex>
+          <ArticlesList articles={searchedArticles} />
+        </Flex>
         <div className="class-align-center">
+          <PreferenceTitle>Articles found</PreferenceTitle>
           {topArticles?.map((topArticle) => (
-            <>
+            <Flex>
               <TopNewsCard
                 key={topArticle.id}
                 id={topArticle.id}
@@ -174,7 +153,7 @@ const Home = () => {
                 publishedAt={topArticle.publishedAt}
               />
               <br />
-            </>
+            </Flex>
           ))}
         </div>
       </Flex>

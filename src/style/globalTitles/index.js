@@ -10,7 +10,7 @@ export const Title = styled.h2`
 export const PreferenceTitle = styled(Title)`
   width: 80%;
   font-size: ${rem('18px')};
-  margin: ${rem('20px')} 0;
+  margin: ${rem('5px')} 0;
   text-align: center;
 `
 

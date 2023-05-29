@@ -16,8 +16,8 @@ export const LoadingSpinnerOverlay = styled.div`
   &::after {
     content: ' ';
     display: block;
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     margin: 1px;
     border-radius: 50%;
     border: 5px solid white;

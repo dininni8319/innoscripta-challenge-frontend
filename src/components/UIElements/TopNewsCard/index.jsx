@@ -7,6 +7,7 @@ export const CardTopNews = styled.div`
   min-height: ${rem('250px')};
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 5px;
+  margin-bottom: 10px;
 
   .place-item__content {
     padding: 0;

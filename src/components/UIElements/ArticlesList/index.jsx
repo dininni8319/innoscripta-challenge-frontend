@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import Card from '../Card'
 import ArticleItem from '../ArticleItem'
+import { PreferenceTitle } from '@/style/globalTitles'
 
 export const ArticlesListStyle = styled.ul`
   list-style: none;
   padding: 0;
-  width: 95%;
   max-width: 30rem;
 `
 
@@ -14,7 +14,7 @@ const ArticlesList = ({ articles }) => {
     return (
       <ArticlesListStyle>
         <Card>
-          <h2>No article was found. Try with another keyword</h2>
+          <h2>Search an article with a key work!</h2>
         </Card>
       </ArticlesListStyle>
     )
@@ -22,6 +22,7 @@ const ArticlesList = ({ articles }) => {
 
   return (
     <ArticlesListStyle>
+      <PreferenceTitle>Articles that you searched</PreferenceTitle>
       {articles?.map((article) => (
         <ArticleItem
           key={article.id}

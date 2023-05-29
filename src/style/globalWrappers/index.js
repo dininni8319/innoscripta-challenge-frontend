@@ -6,15 +6,16 @@ export const Flex = styled.section`
   display: flex;
 
   @media screen and (max-width: 750px) {
+    display: flex;
+    flex-direction: column;
     justify-content: ${(props) => props.justifyContent};
-    display: block;
     align-items: center;
   }
 `
 
 export const FlexColumn = styled(Flex)`
   flex-direction: column;
-  
+  width: 30%;
   @media screen and (max-width: 750px) {
     width: 100%;
     align-items: center;

@@ -7,8 +7,7 @@ export const SearchInputStyle = styled(AuthInput)`
   width: ${rem('345px')};
 
   @media (max-width: 750px) {
-    margin-left: ${rem('15px')};
-    width: 89%;
+    margin-left: ${rem('10px')};
   }
 `
 const SearchInput = (props) => {
