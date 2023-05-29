@@ -40,7 +40,7 @@ const ButtonCouter = ({
 
   return (
     <ButtonCounterWrapper>
-      {topArticles?.length === 0 && searchedArticles.length > 0 && (
+      {topArticles?.length === 0 && searchedArticles?.length > 0 && (
         <>
           <ButtonCounterStyle onClick={() => setPageNum(() => decrement())}>
             {pageNum}

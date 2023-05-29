@@ -11,3 +11,20 @@ docker build -t [any name] . <br/>
 image name: frontend:1
 docker exec -it 79b3fa70b51d /bin/sh
 priettier<br />
+
+<!-- const tag = 'politics'
+  // useEffect(() => {
+  //   const fetchGuardianNews = async () => {
+  //     try {
+  //       const responseData = await sendRequest(
+  //         `${guardianNewUrl}${inputState.value}&tag=${tag}/${tag}&from-date=2023-04-01&api-key=${guardianApiKey}`
+  //       )
+
+
+  //       setSearchedArticles((prevState) =>
+  //         responseData.articles?.concat(prevState)
+  //       )
+  //     } catch (error) {}
+  //   }
+  //   fetchGuardianNews()
+  // }, [inputState.value]) -->

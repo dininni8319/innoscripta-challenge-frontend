@@ -14,7 +14,7 @@ import SearchInput from '@/components/SearchInput'
 import ArticlesList from '@/components/UIElements/ArticlesList'
 import SearchButtons from '@/components/UIElements/SearchButtons'
 import SelectSource from '@/components/FormElements/Select'
-// import { newsArticlesData } from '@/utils/newsApiData'
+import { newsArticlesData } from '@/utils/newsApiData'
 import { FlexColumn, Flex } from '@/style/globalWrappers'
 import { PreferenceTitle } from '@/style/globalTitles'
 import { useFilter } from '@/hooks/filter-hook'
@@ -23,6 +23,7 @@ import TopNewsCard from '../components/UIElements/TopNewsCard'
 const Home = () => {
   const [searchedArticles, setSearchedArticles] = useState([])
   const [topArticles, setTopArticles] = useState([])
+
   const { sendRequest } = useHttpClient()
   const [pageNum, setPageNum] = useState(1)
   const [inputState, dispatch] = useReducer(inputReducer, { value: '' })
@@ -36,35 +37,14 @@ const Home = () => {
     handleFilterByDate,
     handlePreferences
   } = useFilter(searchedArticles, setSearchedArticles, dispatch, inputState)
-
-  const tag = 'politics'
-  useEffect(() => {
-    const fetchGuardianNews = async () => {
-      try {
-        const responseData = await sendRequest(
-          `${guardianNewUrl}${inputState.value}&tag=${tag}/${tag}&from-date=2023-04-01&api-key=${guardianApiKey}`
-        )
-        console.log(
-          '🚀 ~ file: Home.jsx:47 ~ fetchGuardianNews ~ responseData:',
-          responseData
-        )
-
-        // setSearchedArticles((prevState) =>
-        //   responseData.articles?.concat(prevState)
-        // )
-      } catch (error) {}
-    }
-    fetchGuardianNews()
-  }, [inputState.value])
+ 
   useEffect(() => {
     const fetchTopNews = async () => {
       try {
         const responseData = await sendRequest(
           `${topNewUrl}?from=${daysBefore(5)}&country=us&apiKey=${newsApiKey}`
         )
-        setSearchedArticles((prevState) =>
-          responseData.articles?.concat(prevState)
-        )
+        setTopArticles((prevState) => responseData.articles?.concat(prevState))
       } catch (error) {}
     }
     fetchTopNews()
@@ -79,7 +59,7 @@ const Home = () => {
               1
             )}&sortBy=publishedAt&apiKey=${newsApiKey}&page=${pageNum}&pageSize=12`
           )
-          setTopArticles([])
+          console.log("🚀 ~ file: Home.jsx:78 ~ fetchArticles ~ responseData:", responseData)
           setSearchedArticles((prevState) =>
             responseData.articles?.concat(prevState)
           )
@@ -89,6 +69,8 @@ const Home = () => {
     }
   }, [sendRequest, inputState.value, pageNum])
 
+  const articles = newsArticlesData[0].articles
+  console.log("🚀 ~ file: Home.jsx:73 ~ Home ~ articles:", articles)
   return (
     <>
       <SearchButtons
@@ -109,7 +91,7 @@ const Home = () => {
         />
       </Flex>
       <Flex justifyContent="start">
-        {searchedArticles.length > 0 && (
+        {articles?.length > 0 && (
           <FlexColumn>
             <button className="class-input-style" onClick={handleFilterByDate}>
               Filter By date
@@ -139,9 +121,25 @@ const Home = () => {
           </FlexColumn>
         )}
         <br />
-        <ArticlesList articles={searchedArticles} />
+        <ArticlesList articles={articles} />
+        {/* <ArticlesList articles={searchedArticles} /> */}
         <div className="class-align-center">
-          <TopNewsCard />
+          {topArticles?.map((topArticle) => (
+            <>
+              <TopNewsCard
+                key={topArticle.id}
+                id={topArticle.id}
+                author={topArticle.author}
+                title={topArticle.title}
+                content={topArticle.content}
+                description={topArticle.description}
+                image={topArticle.urlToImage}
+                urlToImage={topArticle.urlToImage}
+                publishedAt={topArticle.publishedAt}
+              />
+              <br />
+            </>
+          ))}
         </div>
       </Flex>
     </>
