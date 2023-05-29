@@ -8,7 +8,7 @@ import {
   daysBefore,
   guardianApiKey
 } from '@/utils'
-
+import LoadingSpinner from '@/components/UIElements/Loader'
 import { inputReducer } from '@/reducers/inputReducer'
 import SearchInput from '@/components/SearchInput'
 import ArticlesList from '@/components/UIElements/ArticlesList'
@@ -20,11 +20,9 @@ import { PreferenceTitle } from '@/style/globalTitles'
 import { useFilter } from '@/hooks/filter-hook'
 import TopNewsCard from '../components/UIElements/TopNewsCard'
 
-
 const Home = () => {
   const [searchedArticles, setSearchedArticles] = useState([])
   const [topArticles, setTopArticles] = useState([])
-
   const { sendRequest } = useHttpClient()
   const [pageNum, setPageNum] = useState(1)
   const [inputState, dispatch] = useReducer(inputReducer, { value: '' })
@@ -129,7 +127,8 @@ const Home = () => {
               text="a source"
             />
             <button className="class-input-style" onClick={handlePreferences}>
-              Save preferences
+              {preference && <span className="class-blue">Update your preferences</span>}{' '}
+              {!preference && <span className="class-green">Save your prefrences</span>}
             </button>
           </FlexColumn>
         )}

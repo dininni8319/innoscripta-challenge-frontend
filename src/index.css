@@ -24,6 +24,13 @@ ul {
   width: 30%;
 }
 
+.class-green {
+  color: green;
+}
+
+.class-blue {
+  color: blue;
+}
 
 @media screen and (max-width: 750px) {
   .class-input-style {

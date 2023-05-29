@@ -1,15 +1,15 @@
 import { useContext } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '@/context/auth-context'
 
 // middleware for the protected route
 const ProtectedRoute = ({ children }) => {
   const { token } = useContext(AuthContext)
- 
+  const navigate = useNavigate()
   if (token) {
     return children
   } else {
-    return <Navigate to="/login" />
+    navigate("/login")
   }
 }
 
