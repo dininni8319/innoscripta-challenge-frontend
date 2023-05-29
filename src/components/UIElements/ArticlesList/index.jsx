@@ -5,7 +5,7 @@ import ArticleItem from '../ArticleItem'
 export const ArticlesListStyle = styled.ul`
   list-style: none;
   padding: 0;
-  width: 90%;
+  width: 95%;
   max-width: 30rem;
 `
 

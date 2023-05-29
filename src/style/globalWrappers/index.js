@@ -14,7 +14,7 @@ export const Flex = styled.section`
 
 export const FlexColumn = styled(Flex)`
   flex-direction: column;
-  width: 30%;
+  
   @media screen and (max-width: 750px) {
     width: 100%;
     align-items: center;

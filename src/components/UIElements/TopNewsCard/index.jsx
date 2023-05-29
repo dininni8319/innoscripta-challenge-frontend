@@ -3,7 +3,7 @@ import { rem } from 'polished'
 import { funFormatDate } from '@/utils'
 
 export const CardTopNews = styled.div`
-  width: ${rem('400px')};
+  width: ${rem('300px')};
   min-height: ${rem('250px')};
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 5px;

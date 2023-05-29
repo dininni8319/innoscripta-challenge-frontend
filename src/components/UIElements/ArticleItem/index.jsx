@@ -43,6 +43,10 @@ export const ArticleItemStyle = styled.li`
     .place-item__image {
       height: 20rem;
     }
+
+    .place-item__info {
+      padding: 0.50rem;
+    }
   }
 `
 

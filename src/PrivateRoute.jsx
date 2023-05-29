@@ -5,8 +5,12 @@ import { AuthContext } from '@/context/auth-context'
 // middleware for the protected route
 const ProtectedRoute = ({ children }) => {
   const { token } = useContext(AuthContext)
-
-  return token ? children : <Navigate to="/login" />
+ 
+  if (token) {
+    return children
+  } else {
+    <Navigate to="/login" />
+  }
 }
 
 export default ProtectedRoute

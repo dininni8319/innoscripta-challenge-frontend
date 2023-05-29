@@ -1,8 +1,10 @@
+import { memo } from 'react'
 import MainHeader from './MainHeader'
 import NavLinks from './NavLinks'
 import { Link } from 'react-router-dom'
 
 const MainNavigation = () => {
+
   return (
     <MainHeader>
       <h1>
@@ -13,4 +15,4 @@ const MainNavigation = () => {
   )
 }
 
-export default MainNavigation
+export default memo(MainNavigation)

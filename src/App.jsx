@@ -6,11 +6,10 @@ import Home from './pages/Home'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import ArticleDetail from '@/pages/ArticleDetail'
-import ProtectedRoute from './PrivateRoute'
+import PrivateRoute from './PrivateRoute'
 
 const App = () => {
   const { token, login, logout, userId, name } = useAuth()
-
   return (
     <AuthContext.Provider
       value={{
@@ -38,12 +37,10 @@ const App = () => {
           <Route
             path="/"
             element={
-              // <ProtectedRoute>
-              <>
+              <PrivateRoute>
                 <MainNavigation />
                 <Home />
-              </>
-              // </ProtectedRoute>
+              </PrivateRoute>
             }
           />
         </Routes>
