@@ -4,11 +4,8 @@ import {
   newsApiUrl,
   newsApiKey,
   topNewUrl,
-  guardianNewUrl,
   daysBefore,
-  guardianApiKey
 } from '@/utils'
-import LoadingSpinner from '@/components/UIElements/Loader'
 import { inputReducer } from '@/reducers/inputReducer'
 import SearchInput from '@/components/SearchInput'
 import ArticlesList from '@/components/UIElements/ArticlesList'
@@ -30,15 +27,16 @@ const Home = () => {
   const {
     sources,
     authors,
-    handleReset,
     clearInputSearch,
     handleFilteredBySource,
     handleFilteredByAuthor,
     handleFilterByDate,
-    handlePreferences
+    handlePreferences,
+    handleCategory,
+    categories
   } = useFilter(articles, setSearchedArticles, dispatch, inputState)
  
-  const preference = JSON.parse(localStorage.getItem("preference"))
+  let preference = JSON.parse(localStorage.getItem("preference"))
 
   useEffect(() => {
     const fetchTopNews = async () => {
@@ -57,7 +55,9 @@ const Home = () => {
       const fetchArticles = async () => {
         try {
           const responseData = await sendRequest(
-            `${newsApiUrl}/everything?q=${inputState.value}&from=${daysBefore(
+            `${newsApiUrl}/top-headlines?q=${
+              inputState.value
+            }&from=${daysBefore(
               1
             )}&sortBy=publishedAt&apiKey=${newsApiKey}&page=${pageNum}&pageSize=12`
           )
@@ -72,15 +72,24 @@ const Home = () => {
   
    useEffect(() => {
     if (preference) {
-        let filteredSource = articles?.filter(
-          (article) => article.source.name === preference.source
-        )
-        let filteredAuthor = filteredSource?.filter(
-          (article) => article.author === preference.author
-        )
-        setSearchedArticles(filteredAuthor)
+       const fetchArticles = async () => {
+         try {
+           const responseData = await sendRequest(
+             `${newsApiUrl}/everything?q=${preference.source}&author=${
+               preference.author
+             }&${preference.category}&from=${daysBefore(
+               5
+             )}&sortBy=publishedAt&apiKey=${newsApiKey}&page=${pageNum}&pageSize=12`
+           )
+           
+           setSearchedArticles((prevState) =>
+             responseData.articles?.concat(prevState)
+           )
+         } catch (error) {}
+       }
+       fetchArticles()
     }
-   }, [sendRequest, inputState.value, pageNum])
+   }, [])
   
   return (
     <>
@@ -112,9 +121,6 @@ const Home = () => {
               handleFilteredBySource={handleFilteredBySource}
               text="a source"
             />
-            <button className="class-input-style" onClick={handleReset}>
-              Go back
-            </button>
             <PreferenceTitle>Set your preferences</PreferenceTitle>
             <SelectSource
               sources={authors}
@@ -126,9 +132,18 @@ const Home = () => {
               handleFilteredBySource={handleFilteredBySource}
               text="a source"
             />
+            <SelectSource
+              sources={categories}
+              handleFilteredBySource={handleCategory}
+              text="a category"
+            />
             <button className="class-input-style" onClick={handlePreferences}>
-              {preference && <span className="class-blue">Update your preferences</span>}{' '}
-              {!preference && <span className="class-green">Save your prefrences</span>}
+              {preference && (
+                <span className="class-blue">Update your preferences</span>
+              )}{' '}
+              {!preference && (
+                <span className="class-green">Save your prefrences</span>
+              )}
             </button>
           </FlexColumn>
         )}

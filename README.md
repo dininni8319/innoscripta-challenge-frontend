@@ -28,3 +28,11 @@ priettier<br />
   //   }
   //   fetchGuardianNews()
   // }, [inputState.value]) -->
+<!-- 
+ let filteredSource = articles?.filter(
+          (article) => article.source.name === preference.source
+        )
+        let filteredAuthor = filteredSource?.filter(
+          (article) => article.author === preference.author
+        )
+        setSearchedArticles(filteredAuthor) -->

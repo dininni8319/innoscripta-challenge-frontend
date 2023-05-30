@@ -9,8 +9,9 @@ export const useFilter = (
 ) => {
   const [selectedAuthor, setSelectedAuthor] = useState('')
   const [selectedSource, setSelectedSource] = useState('')
-  const [reset, setReset] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState('')
   const [debounce, setDebounce] = useState(false)
+  const categories = ["Sport", "Politics", "Design", "Fashion","Technology"]
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -29,10 +30,6 @@ export const useFilter = (
     let data = getAllSources(searchedArticles, 'author')
     return data
   }, [debounce])
-
-  const handleReset = () => {
-    setReset(!reset)
-  }
 
   const handleFilteredBySource = (event) => {
     let selectedSource = event.target.value
@@ -56,6 +53,11 @@ export const useFilter = (
     setSearchedArticles(filtered)
   }
 
+  const handleCategory = (event) => {
+    let selectedCategory = event.target.value
+
+    setSelectedCategory(selectedCategory)
+  }
   const handleFilterByDate = () => {
     let sorted = sortedData(searchedArticles)
     setSearchedArticles((prev) => [...sorted])
@@ -65,7 +67,7 @@ export const useFilter = (
     const preference = {
       author: selectedAuthor,
       source: selectedSource,
-      category: ''
+      category: selectedCategory,
     }
 
     localStorage.setItem('preference', JSON.stringify(preference))
@@ -82,13 +84,14 @@ export const useFilter = (
   return {
     sources,
     authors,
+    categories,
     selectedAuthor,
     selectedSource,
-    handleReset,
     clearInputSearch,
     handleFilteredBySource,
     handleFilteredByAuthor,
     handleFilterByDate,
-    handlePreferences
+    handlePreferences,
+    handleCategory
   }
 }
